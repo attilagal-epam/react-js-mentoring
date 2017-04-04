@@ -1,0 +1,108 @@
+.App {
+  text-align: center;
+  font-family: "Trebuchet MS";
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+* {
+    /*outline: solid black 1px;*/
+}
+
+.todoBody {
+    max-width: 600px;
+}
+
+.header {
+  padding: 10px;
+  height: 60px;
+}
+
+.header__searchArea {
+  text-align: right;
+  text-align: left;
+  display: inline-block;
+  padding-top: 14px;
+}
+
+.header__search {
+    margin-left: 15px;
+}
+.header__title {
+  text-align: left;
+  display: inline-block;
+  float: left;
+  font-size: 35px;
+}
+
+.searchBar {
+  margin-bottom: 15px;
+}
+
+.addTodo {
+    text-align: right;
+}
+
+.todoContainer {
+  float: left;
+  width: 70%;
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.todos {
+  float: left;
+  width: 70%;
+}
+
+.todo {
+  border: 1px solid black;
+  text-align: left;
+  height: 50px;
+}
+
+.todoContent {
+  padding-top: 15px;
+}
+.editTodo {
+  float: right;
+}
+
+.progressBar__border {
+  width:600px;
+  height:10px;
+  border:1px solid #000;
+  margin-bottom: 10px;
+}
+
+.progressBar__value {
+  width:600px;
+  height:10px;
+  margin-bottom: 10px;
+  background-color: gray;
+  width:50%
+}
+
+.todoFinished {
+  margin: 0 35px 0 25px;
+}

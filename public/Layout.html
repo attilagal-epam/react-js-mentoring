@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="App.css" media="screen" />
+</head>
+<body>
+<div class="container todoBody">
+    <div class="row header">
+        <span class="col-sm-6 header__title">To-Do List</span>
+        <div class="col-sm-6 header__searchArea">
+            <input type="checkbox" name="searchDone" id="searchDone">
+            <label for="searchDone">Text</label>
+            <input type="text" name="search" id="search">
+        </div>
+    </div>
+    <div class="row progressBar">
+        <div class="col-sm-12">
+        PROGRESS BAR
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 addCategory">
+            <input type="text"
+                   name="category"
+                   id="category"
+                   placeholder="Enter category title">
+            <button>Add</button>
+        </div>
+        <div class="col-sm-6 addTodo">
+            <input type="text"
+                   name="todo"
+                   id="todo">
+            <button>Add</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 categories">
+            <div class="category">
+                <div class="categoryTitle">
+                    <span>Category1</span><button>E</button>
+                </div>
+                <div class="categoryButtons">
+                    <button>D</button><button>A</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 todos">
+            <div class="todo">
+                <input type="checkbox" class="todoFinished">
+                <span class="todoTitle">To-Do Item #1</span>
+                <button class="editTodo">E</button>
+            </div>
+            <div class="todo">
+                <input type="checkbox" class="todoFinished">
+                <span class="todoTitle">To-Do Item #2</span>
+                <button class="editTodo">E</button>
+            </div>
+            <div class="todo">
+                <input type="checkbox" class="todoFinished">
+                <span class="todoTitle">To-Do Item #3</span>
+                <button class="editTodo">E</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

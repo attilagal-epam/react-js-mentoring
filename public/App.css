@@ -1,0 +1,71 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+* {
+    /*outline: solid black 1px;*/
+}
+
+.todoBody {
+    max-width: 600px;
+}
+
+.header__searchArea {
+    text-align: right;
+    text-align: left;
+    display: inline-block;
+}
+
+.header__title {
+    text-align: left;
+    display: inline-block;
+    float: left;
+}
+
+.addCategory {
+  float: left;
+}
+
+
+.addTodo {
+    text-align: right;
+}
+
+.categories {
+  float: left;
+  width: 30%;
+  border: black 1px solid;
+}
+
+.todos {
+  float: right;
+  width: 50%;
+}
+
+.todo {
+  border: black 1px solid;
+}
+.editTodo {
+  float: right;
+}

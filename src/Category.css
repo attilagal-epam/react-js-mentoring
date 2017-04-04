@@ -1,0 +1,33 @@
+.category {
+  border: 1px solid black;
+}
+
+.categories {
+  float: left;
+  width: 30%;
+  height: 400px;
+  outline: solid black 1px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.categoryButtons {
+  float: right;
+  background: red;
+}
+
+.addCategory {
+  float: left;
+}
+
+/*
+.editCategory {
+  position: relative;
+  left: 35px;
+}
+*/
+
+.categoryTitle {
+  float: left;
+  width: 0px;
+}

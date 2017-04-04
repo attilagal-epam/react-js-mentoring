@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="App.css" media="screen" />
+</head>
+<body>
+<div class="content">
+    <div class="header">
+        <span class="header__title">To-Do List</span>
+        <div class="header__searchArea">
+            <input type="checkbox" name="searchDone" id="searchDone">
+            <label for="searchDone">Text</label>
+            <input type="text" name="search" id="search">
+        </div>
+    </div>
+    <div class="progressBar">PROGRESS BAR</div>
+    <div>
+        <div class="addCategory">
+            <input type="text"
+                   name="category"
+                   id="category"
+                   placeholder="Enter category title">
+            <button>Add</button>
+        </div>
+        <div class="addTodo">
+            <input type="text"
+                   name="todo"
+                   id="todo">
+            <button>Add</button>
+        </div>
+    </div>
+    <div class="categories">
+        <div class="category">
+            <div class="categoryTitle">
+                <span>Category1</span><button>E</button>
+            </div>
+            <div class="categoryButtons">
+                <button>D</button><button>A</button>
+            </div>
+        </div>
+    </div>
+    <div class="todos">
+        <div class="todo">
+            <input type="checkbox" class="todoFinished">
+            <span class="todoTitle">To-Do Item #1</span>
+            <button class="editTodo">E</button>
+        </div>
+        <div class="todo">
+            <input type="checkbox" class="todoFinished">
+            <span class="todoTitle">To-Do Item #2</span>
+            <button class="editTodo">E</button>
+        </div>
+        <div class="todo">
+            <input type="checkbox" class="todoFinished">
+            <span class="todoTitle">To-Do Item #3</span>
+            <button class="editTodo">E</button>
+        </div>
+    </div>
+</body>
+</html>
