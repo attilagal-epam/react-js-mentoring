@@ -7,7 +7,9 @@ class Todo extends React.Component {
                 <div className="todoContent">
                     <input type="checkbox" className="todoFinished" />
                     <span className="todoTitle">{this.props.name}</span>
-                    <button className="editTodo"><i class="fa-edit"></i>s</button>
+                    <div className="todoButtons">
+                        <i className="fa fa-pencil-square-o toolButton"></i>
+                    </div>
                 </div>
             </div>
         );

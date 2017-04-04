@@ -6,14 +6,14 @@ class CategoryContainer extends React.Component {
     render() {
         return (
             <div className="categories">
-                <CategoryList list={this.props.categories} />
+                    <CategoryList list={this.props.categories} />
             </div>
         );
     }
 }
 
 const CategoryList = ({list}) => (
-    <div>{list.map((category) => <Category category={category} />)}</div>
+    <div>{list.map((category) => <Category category={category} key={category.key} />)}</div>
 );
 
 export {CategoryList, CategoryContainer};

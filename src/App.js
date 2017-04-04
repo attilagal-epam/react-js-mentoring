@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ProgressBar from './ProgressBar';
-import Todo from './Todo';
 import TodoContainer from './TodoContainer';
 import {CategoryContainer} from './CategoryContainer';
 
@@ -13,25 +11,31 @@ class App extends Component {
             progress : 0,
             categories : [
                 {
-                    name: 'egyes'
+                    name: 'egyes',
+                    key: '1'
                 },
                 {
-                    name: 'kettes'
-                },
+                    name: 'kettes',
+                    key: '2'
+                }/*,
                 {
                     name: 'hármas',
+                    key: '3',
                     categories: [
                         {
-                            name: '3.1'
+                            name: '3.1',
+                            key: '3.1'
                         },
                         {
-                            name: '3.2'
+                            name: '3.2',
+                            key: '3.2'
                         },
                         {
-                            name: '3.1'
+                            name: '3.3',
+                            key: '3.3'
                         }
                     ]
-                },
+                }*/
             ]
         }
     }
@@ -78,7 +82,6 @@ class App extends Component {
                 <TodoContainer />
             </div>
         </div>
-
     );
   }
 }

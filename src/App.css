@@ -63,9 +63,9 @@
 }
 
 .todoContainer {
-  float: left;
-  width: 70%;
-  height: 400px;
+  float:left;
+  min-width: 70%;
+  min-height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -81,9 +81,15 @@
   height: 50px;
 }
 
+.todoButtons {
+  float: right;
+  margin-right: 10px;
+}
+
 .todoContent {
   padding-top: 15px;
 }
+
 .editTodo {
   float: right;
 }

@@ -1,20 +1,16 @@
 import React from 'react';
-import {CategoryList} from './CategoryContainer';
-
 
 class Category extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div className="category">
-                <div className="categoryTitle">
+                <span className="categoryTitle">
                     {this.props.category.name}
-                </div>
-                <button className="editCategory">E</button>
+                </span>
                 <div className="categoryButtons">
-                    <button>D</button><button>A</button>
+                    <i className="fa fa-pencil-square-o categoryEdit"></i>
+                    <i className="fa fa-trash-o toolButton"></i>
+                    <i className="fa fa-plus toolButton"></i>
                 </div>
             </div>
         );
@@ -24,6 +20,7 @@ class Category extends React.Component {
 export default Category;
 
 /*
+ <button className="editCategory">E</button>
 {this.props.category.categories &&
 <div className="categories">
     <CategoryList list={this.props.category.categories}/>

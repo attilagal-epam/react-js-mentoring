@@ -5,21 +5,41 @@ class TodoContainer extends React.Component {
     render() {
         this.state = {
             list : [
-                {name: "egy"},
-                {name: "kettő"},
-                {name: "három"},
-                {name: "négy"},
-                {name: "öt"},
+                {
+                    name: "egy",
+                    key: "1"
+                },
+                {
+                    name: "kettő",
+                    key: "2"
+                },
+                {
+                    name: "három",
+                    key: "3"
+                },
+                {
+                    name: "négy",
+                    key: "4"
+                },
+                {
+                    name: "öt",
+                    key: "5"
+                },
             ] } ;
         return (
             <div className="todoContainer">
-                <TodoList list={this.state.list} />
+                {this.state.list.map((todo) => <Todo name={todo.name} key={todo.key} />)}
             </div>
         );
     }
 }
 
-const TodoList = ({list}) => (
-    <div className="todo">{list.map((todo) => <Todo name={todo.name} />)}</div>
-);
 export default TodoContainer;
+
+/*
+<TodoList list={this.state.list} />
+
+const TodoList = ({list}) => (
+    <div className="todo">{list.map((todo) => <Todo name={todo.name} key={todo.key} />)}</div>
+);
+*/
