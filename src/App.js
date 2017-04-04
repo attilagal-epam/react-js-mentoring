@@ -17,7 +17,7 @@ class App extends Component {
                 {
                     name: 'kettes',
                     key: '2'
-                }/*,
+                },
                 {
                     name: 'hármas',
                     key: '3',
@@ -28,14 +28,20 @@ class App extends Component {
                         },
                         {
                             name: '3.2',
-                            key: '3.2'
+                            key: '3.2',
+                            categories: [
+                                {
+                                    name: '3.2.1',
+                                    key: '3.2.1'
+                                }
+                            ]
                         },
                         {
                             name: '3.3',
                             key: '3.3'
                         }
                     ]
-                }*/
+                }
             ]
         }
     }
@@ -78,7 +84,7 @@ class App extends Component {
                             <button>Add</button>
                     </div>
                 </div>
-                <CategoryContainer categories={this.state.categories} />
+                <CategoryContainer categories={this.state.categories} isRoot={true} />
                 <TodoContainer />
             </div>
         </div>

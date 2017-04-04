@@ -3,13 +3,19 @@
   text-align: left;
 }
 
-.categories {
+.categoriesRoot {
   float:left;
   min-width: 30%;
   min-height: 400px;
   outline: solid black 1px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.categories {
+  width: auto;
+  height: auto;
+  outline: solid black 1px;
 }
 
 .categoryButtons {

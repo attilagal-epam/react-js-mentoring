@@ -1,4 +1,6 @@
 import React from 'react';
+import {CategoryList} from './CategoryContainer';
+
 
 class Category extends React.Component {
     render() {
@@ -12,18 +14,14 @@ class Category extends React.Component {
                     <i className="fa fa-trash-o toolButton"></i>
                     <i className="fa fa-plus toolButton"></i>
                 </div>
+                {this.props.category.categories &&
+                <div className="categories">
+                    <CategoryList list={this.props.category.categories}/>
+                </div>
+                }
             </div>
         );
     }
 }
 
 export default Category;
-
-/*
- <button className="editCategory">E</button>
-{this.props.category.categories &&
-<div className="categories">
-    <CategoryList list={this.props.category.categories}/>
-</div>
-}
-*/
