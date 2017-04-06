@@ -1,5 +1,6 @@
-import Todo from './Todo';
 import React from 'react';
+import Todo from './Todo';
+import './Todo.css';
 
 class TodoContainer extends React.Component {
     render() {

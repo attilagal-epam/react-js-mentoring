@@ -1,0 +1,19 @@
+.todo {
+    border: 1px solid black;
+    text-align: left;
+    height: 50px;
+}
+
+.todoButtons {
+    float: right;
+    margin-right: 10px;
+}
+
+.todoContent {
+    padding-top: 15px;
+}
+
+.todoFinished {
+    margin: 0 35px 0 25px;
+}
+

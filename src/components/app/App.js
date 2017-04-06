@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import ProgressBar from './ProgressBar';
-import TodoContainer from './TodoContainer';
-import {CategoryContainer} from './CategoryContainer';
+import ProgressBar from './../progressbar/ProgressBar';
+import TodoContainer from './../todo/TodoContainer';
+import {CategoryContainer} from './../category/CategoryContainer';
 
 class App extends Component {
     constructor(props){
