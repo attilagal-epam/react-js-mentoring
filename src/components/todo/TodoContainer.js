@@ -4,32 +4,10 @@ import './Todo.css';
 
 class TodoContainer extends React.Component {
     render() {
-        this.state = {
-            list : [
-                {
-                    name: "egy",
-                    key: "1"
-                },
-                {
-                    name: "kettő",
-                    key: "2"
-                },
-                {
-                    name: "három",
-                    key: "3"
-                },
-                {
-                    name: "négy",
-                    key: "4"
-                },
-                {
-                    name: "öt",
-                    key: "5"
-                },
-            ] } ;
+        this.state = this.props.todos;
         return (
             <div className="todoContainer">
-                {this.state.list.map((todo) => <Todo name={todo.name} key={todo.key} />)}
+                {this.state.map((todo) => <Todo name={todo.name} key={todo.key} />)}
             </div>
         );
     }

@@ -4,49 +4,82 @@ import ProgressBar from './../progressbar/ProgressBar';
 import TodoContainer from './../todo/TodoContainer';
 import {CategoryContainer} from './../category/CategoryContainer';
 
+const categoryDataSource = [
+    {
+        name: 'egyes',
+        key: '1'
+    },
+    {
+        name: 'kettes',
+        key: '2'
+    },
+    {
+        name: 'hármas',
+        key: '3',
+        categories: [
+            {
+                name: '3.1',
+                key: '3.1'
+            },
+            {
+                name: '3.2',
+                key: '3.2',
+                categories: [
+                    {
+                        name: '3.2.1',
+                        key: '3.2.1'
+                    }
+                ]
+            },
+            {
+                name: '3.3',
+                key: '3.3'
+            }
+        ]
+    }
+],
+    todosDataSource = [
+    {
+        name: "egy",
+        key: "1"
+    },
+    {
+        name: "kettő",
+        key: "2"
+    },
+    {
+        name: "három",
+        key: "3"
+    },
+    {
+        name: "négy",
+        key: "4"
+    },
+    {
+        name: "öt",
+        key: "5"
+    }
+];
+
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
             progress : 0,
-            categories : [
-                {
-                    name: 'egyes',
-                    key: '1'
-                },
-                {
-                    name: 'kettes',
-                    key: '2'
-                },
-                {
-                    name: 'hármas',
-                    key: '3',
-                    categories: [
-                        {
-                            name: '3.1',
-                            key: '3.1'
-                        },
-                        {
-                            name: '3.2',
-                            key: '3.2',
-                            categories: [
-                                {
-                                    name: '3.2.1',
-                                    key: '3.2.1'
-                                }
-                            ]
-                        },
-                        {
-                            name: '3.3',
-                            key: '3.3'
-                        }
-                    ]
-                }
-            ]
+            categories : categoryDataSource,
+            todos: todosDataSource,
+            todosFilter: ''
         }
+        console.log(props.params);
     }
   componentDidMount(){
     this.setState({ progress : 10 });
+  }
+
+  filterTodos(event) {
+      const todosNew = todosDataSource.filter(t => t.name.indexOf(event.target.value) !== -1);
+      this.setState({todos: todosNew});
+      console.log(this.state, todosNew, event.target.value);
   }
 
   render() {
@@ -60,7 +93,8 @@ class App extends Component {
                         <label htmlFor="searchDone">Show done</label>
                         <input type="text"
                                name="search" className="header__search" id="search"
-                               placeholder="Search"/>
+                               placeholder="Search"
+                               onChange={this.filterTodos.bind(this)}/>
                     </div>
                 </div>
                 <div className="progressBar">
@@ -85,7 +119,7 @@ class App extends Component {
                     </div>
                 </div>
                 <CategoryContainer categories={this.state.categories} isRoot={true} />
-                <TodoContainer />
+                <TodoContainer todos={this.state.todos} />
             </div>
         </div>
     );
