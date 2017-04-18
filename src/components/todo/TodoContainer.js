@@ -11,6 +11,7 @@ class TodoContainer extends React.Component {
                     todo={todo}
                     key={todo.key}
                     onEditCallback={this.props.onEditCallback}
+                    onTodoDoneCallback={this.props.onTodoDoneCallback}
                 />)}
             </div>
         );

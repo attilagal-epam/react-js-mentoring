@@ -9,12 +9,14 @@ const categoryDataSource = [
     {
         name: 'egyes',
         key: '1',
-        categories: []
+        categories: [],
+        done: false
     },
     {
         name: 'kettes',
         key: '2',
-        categories: []
+        categories: [],
+        done: false
     },
     {
         name: 'hármas',
@@ -23,7 +25,8 @@ const categoryDataSource = [
             {
                 name: '3.1',
                 key: '3.1',
-                categories: []
+                categories: [],
+                done: false
             },
             {
                 name: '3.2',
@@ -32,14 +35,16 @@ const categoryDataSource = [
                     {
                         name: '3.2.1',
                         key: '3.2.1',
-                        categories: []
+                        categories: [],
+                        done: false
                     }
                 ]
             },
             {
                 name: '3.3',
                 key: '3.3',
-                categories: []
+                categories: [],
+                done: false
             }
         ]
     }
@@ -169,6 +174,29 @@ class App extends Component {
       this.setState({editedTodo: null});
   }
 
+  onTodoDone(todo, value) {
+      // TODO: find and replace the todo with the same key
+      this.setState({todos: this.state.todos.map(t => todo.key === t.key ? Object.assign(t, {done: value}) : t)});
+      this.setCategoryProgress(todo.categoryId);
+      this.removeFinishedCategories();
+      console.log(this.state.todos);
+  }
+
+  removeFinishedCategories() {
+      this.setState({ categories: this.state.categories.filter(c => this.isCategoryDone(c, this.state.todos)) });
+  }
+
+  isCategoryDone(category, todos) {
+      if (category.categories.length > 0) {
+          
+      }
+  }
+
+  setCategoryProgress(categoryId) {
+    const category = this.state.categories.find(c => c.key === categoryId);
+    category.done = !this.state.todos.some(t => t.categoryID === categoryId && !t.done);
+  }
+
   onTodoEditCanceled(todo) {
       this.setState({editedTodo: null});
   }
@@ -183,6 +211,7 @@ class App extends Component {
     } else {
         todoComponent = <TodoContainer todos={this.state.todos}
                                        onEditCallback={this.onEditTodo.bind(this)}
+                                       onTodoDoneCallback={this.onTodoDone.bind(this)}
         />;
     }
     return (
