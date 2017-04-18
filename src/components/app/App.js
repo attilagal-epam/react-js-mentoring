@@ -7,11 +7,13 @@ import {CategoryContainer} from './../category/CategoryContainer';
 const categoryDataSource = [
     {
         name: 'egyes',
-        key: '1'
+        key: '1',
+        categories: []
     },
     {
         name: 'kettes',
-        key: '2'
+        key: '2',
+        categories: []
     },
     {
         name: 'hármas',
@@ -19,7 +21,8 @@ const categoryDataSource = [
         categories: [
             {
                 name: '3.1',
-                key: '3.1'
+                key: '3.1',
+                categories: []
             },
             {
                 name: '3.2',
@@ -27,13 +30,15 @@ const categoryDataSource = [
                 categories: [
                     {
                         name: '3.2.1',
-                        key: '3.2.1'
+                        key: '3.2.1',
+                        categories: []
                     }
                 ]
             },
             {
                 name: '3.3',
-                key: '3.3'
+                key: '3.3',
+                categories: []
             }
         ]
     }
@@ -73,13 +78,44 @@ class App extends Component {
             progress : 0,
             categories : categoryDataSource,
             todos: todosDataSource,
-            todosFilter: ''
+            todosFilter: '',
+            categoryFilter: '',
+            newCategory: '',
+            newTodo: '',
         }
         console.log(props.params);
     }
-  componentDidMount(){
+  componentDidMount() {
     this.setState({ progress : 10 });
   }
+
+  insertCategory(categoryTitle, parentCategory) {
+      const rootCategories = this.state.categories;
+      let categories = parentCategory ? parentCategory.categories : this.state.categories;
+      categories.unshift({
+          key: 10000 - categories.length,
+          name: categoryTitle,
+          categories: []});
+      this.setState({categories: rootCategories});
+  }
+
+  addRootCategory() {
+        this.insertCategory('vesbdfb');
+  }
+  addCategory(parentCategory) {
+    console.log(this.state.newCategory, parentCategory);
+      this.insertCategory('vesbdfb', parentCategory);
+  }
+
+  addTodo() {
+      console.log(this.state.newTodo);
+      let todos = this.state.todos;
+      todos.unshift({
+          key: 10000 - todos.length,
+          name: "haerhd"});
+      this.setState({todos: todos});
+  }
+
 
   setTodosFilter(event) {
       this.setState({todosFilter: event.target.value});
@@ -96,6 +132,12 @@ class App extends Component {
   selectCategory(categoryId) {
       this.setState({categoryFilter: categoryId});
       this.doFilter();
+  }
+
+  deleteCategory(categoryId) {
+    console.log('DELETE:  ', categoryId);
+    this.setState({categories: this.state.categories.filter(t => t.key !== categoryId)});
+
   }
 
   render() {
@@ -123,21 +165,25 @@ class App extends Component {
                         <input type="text"
                                name="category"
                                id="category"
+                               value={this.state.newCategory}
                                placeholder="Enter category title" />
-                            <button>Add</button>
+                            <button onClick={this.addRootCategory.bind(this)}>Add</button>
                     </div>
                     <div className="addTodo">
                         <input type="text"
                                name="todo"
                                id="todo"
+                               value={this.state.newTodo}
                                placeholder="Add todo"/>
-                            <button>Add</button>
+                            <button onClick={this.addTodo.bind(this)}>Add</button>
                     </div>
                 </div>
                 <CategoryContainer
                     categories={this.state.categories}
                     isRoot={true}
                     selectCategoryCallback={this.selectCategory.bind(this)}
+                    onDeleteCallback={this.deleteCategory.bind(this)}
+                    onAddChildCallback={this.addCategory.bind(this)}
                 />
                 <TodoContainer todos={this.state.todos} />
             </div>

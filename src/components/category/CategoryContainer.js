@@ -9,17 +9,23 @@ class CategoryContainer extends React.Component {
                     <CategoryList
                         list={this.props.categories}
                         selectCategoryCallback={this.props.selectCategoryCallback}
+                        onDeleteCallback={this.props.onDeleteCallback}
+                        onAddChildCallback={this.props.onAddChildCallback}
                     />
             </div>
         );
     }
 }
 
-const CategoryList = ({list, selectCategoryCallback}) => (
+const CategoryList = ({list, selectCategoryCallback, onDeleteCallback, onAddChildCallback}) => (
     <div>
         {list.map((category) => <Category
-                                    category={category} key={category.key}
-                                    selectCategoryCallback={selectCategoryCallback} />)}
+                                    category={category}
+                                    key={category.key}
+                                    selectCategoryCallback={selectCategoryCallback}
+                                    onDeleteCallback={onDeleteCallback}
+                                    onAddChildCallback={onAddChildCallback}
+        />)}
     </div>
 );
 
