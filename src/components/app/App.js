@@ -40,24 +40,29 @@ const categoryDataSource = [
 ],
     todosDataSource = [
     {
-        name: "egy",
-        key: "1"
+        name: 'egy',
+        key: '1',
+        categoryId: '3.3'
     },
     {
-        name: "kettő",
-        key: "2"
+        name: 'kettő',
+        key: '2',
+        categoryId: '3.3'
     },
     {
-        name: "három",
-        key: "3"
+        name: 'három',
+        key: '3',
+        categoryId: '1'
     },
     {
-        name: "négy",
-        key: "4"
+        name: 'négy',
+        key: '4',
+        categoryId: '3'
     },
     {
-        name: "öt",
-        key: "5"
+        name: 'öt',
+        key: '5',
+        categoryId: '2'
     }
 ];
 
@@ -76,10 +81,21 @@ class App extends Component {
     this.setState({ progress : 10 });
   }
 
-  filterTodos(event) {
-      const todosNew = todosDataSource.filter(t => t.name.indexOf(event.target.value) !== -1);
+  setTodosFilter(event) {
+      this.setState({todosFilter: event.target.value});
+//      console.log(this.state);
+      this.doFilter();
+  }
+
+  doFilter() {
+      const todosNew = todosDataSource.filter(t => t.name.indexOf(this.state.todosFilter) !== -1 && t.key === this.state.categoryFilter);
       this.setState({todos: todosNew});
-      console.log(this.state, todosNew, event.target.value);
+      console.log(this.state);
+  }
+
+  selectCategory(categoryId) {
+      this.setState({categoryFilter: categoryId});
+      this.doFilter();
   }
 
   render() {
@@ -94,7 +110,7 @@ class App extends Component {
                         <input type="text"
                                name="search" className="header__search" id="search"
                                placeholder="Search"
-                               onChange={this.filterTodos.bind(this)}/>
+                               onChange={this.setTodosFilter.bind(this)}/>
                     </div>
                 </div>
                 <div className="progressBar">
@@ -118,7 +134,11 @@ class App extends Component {
                             <button>Add</button>
                     </div>
                 </div>
-                <CategoryContainer categories={this.state.categories} isRoot={true} />
+                <CategoryContainer
+                    categories={this.state.categories}
+                    isRoot={true}
+                    selectCategoryCallback={this.selectCategory.bind(this)}
+                />
                 <TodoContainer todos={this.state.todos} />
             </div>
         </div>

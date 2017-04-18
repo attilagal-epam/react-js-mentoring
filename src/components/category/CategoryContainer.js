@@ -6,16 +6,20 @@ class CategoryContainer extends React.Component {
     render() {
         return (
             <div className={this.props.isRoot ? 'categoriesRoot' : 'categories'}>
-                    <CategoryList list={this.props.categories} />
+                    <CategoryList
+                        list={this.props.categories}
+                        selectCategoryCallback={this.props.selectCategoryCallback}
+                    />
             </div>
         );
     }
 }
 
-const CategoryList = ({list}) => (
-
+const CategoryList = ({list, selectCategoryCallback}) => (
     <div>
-        {list.map((category) => <Category category={category} key={category.key} />)}
+        {list.map((category) => <Category
+                                    category={category} key={category.key}
+                                    selectCategoryCallback={selectCategoryCallback} />)}
     </div>
 );
 
