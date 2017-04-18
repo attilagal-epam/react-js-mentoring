@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ProgressBar from './../progressbar/ProgressBar';
 import TodoContainer from './../todo/TodoContainer';
+import EditTodo from './../editTodo/EditTodo';
 import {CategoryContainer} from './../category/CategoryContainer';
 
 const categoryDataSource = [
@@ -47,27 +48,37 @@ const categoryDataSource = [
     {
         name: 'egy',
         key: '1',
-        categoryId: '3.3'
+        categoryId: '3.3',
+        description: 'agsdgxdhbxfgncfncvhm',
+        done: false
     },
     {
         name: 'kettő',
         key: '2',
-        categoryId: '3.3'
+        categoryId: '3.3',
+        description: '',
+        done: false
     },
     {
         name: 'három',
         key: '3',
-        categoryId: '1'
+        categoryId: '1',
+        description: '',
+        done: false
     },
     {
         name: 'négy',
         key: '4',
-        categoryId: '3'
+        categoryId: '3',
+        description: '',
+        done: false
     },
     {
         name: 'öt',
         key: '5',
-        categoryId: '2'
+        categoryId: '2',
+        description: '',
+        done: false
     }
 ];
 
@@ -82,6 +93,7 @@ class App extends Component {
             categoryFilter: '',
             newCategory: '',
             newTodo: '',
+            editedTodo: null
         }
         console.log(props.params);
     }
@@ -140,7 +152,39 @@ class App extends Component {
 
   }
 
+  moveToCategory(categoryId) {
+    //  TODO:  find todo and set categoryId
+    const editedTodo = this.state.editedTodo;
+    this.setState({todos: this.state.todos.map(t => editedTodo.key === t.key ? Object.assign(t, {categoryId: categoryId}) : t),
+                    editedTodo: null});
+  }
+
+  onEditTodo(todo) {
+      //    TODO: clone the edited todo
+      this.setState({editedTodo: todo});
+  }
+
+  onTodoSaved(todo) {
+      // TODO: find and replace the todo with the same key
+      this.setState({editedTodo: null});
+  }
+
+  onTodoEditCanceled(todo) {
+      this.setState({editedTodo: null});
+  }
+
   render() {
+    let todoComponent = null;
+    if (this.state.editedTodo) {
+        todoComponent = <EditTodo todo={this.state.editedTodo}
+                                  onTodoSaved={this.onTodoSaved.bind(this)}
+                                  onTodoEditCanceled={this.onTodoEditCanceled.bind(this)}
+        />;
+    } else {
+        todoComponent = <TodoContainer todos={this.state.todos}
+                                       onEditCallback={this.onEditTodo.bind(this)}
+        />;
+    }
     return (
         <div className="App container">
             <div className="container todoBody">
@@ -150,7 +194,9 @@ class App extends Component {
                         <input type="checkbox" name="searchDone" id="searchDone" />
                         <label htmlFor="searchDone">Show done</label>
                         <input type="text"
-                               name="search" className="header__search" id="search"
+                               name="search"
+                               className="header__search"
+                               id="search"
                                placeholder="Search"
                                onChange={this.setTodosFilter.bind(this)}/>
                     </div>
@@ -184,8 +230,10 @@ class App extends Component {
                     selectCategoryCallback={this.selectCategory.bind(this)}
                     onDeleteCallback={this.deleteCategory.bind(this)}
                     onAddChildCallback={this.addCategory.bind(this)}
+                    onMoveToCategoryCallback={this.moveToCategory.bind(this)}
+                    editedTodo={this.state.editedTodo}
                 />
-                <TodoContainer todos={this.state.todos} />
+                {todoComponent}
             </div>
         </div>
     );

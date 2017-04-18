@@ -7,7 +7,11 @@ class TodoContainer extends React.Component {
         this.state = this.props.todos;
         return (
             <div className="todoContainer">
-                {this.state.map((todo) => <Todo name={todo.name} key={todo.key} />)}
+                {this.state.map((todo) => <Todo
+                    todo={todo}
+                    key={todo.key}
+                    onEditCallback={this.props.onEditCallback}
+                />)}
             </div>
         );
     }
