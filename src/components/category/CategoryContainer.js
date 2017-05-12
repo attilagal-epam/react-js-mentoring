@@ -6,14 +6,6 @@ class CategoryContainer extends React.Component {
     render() {
         return (
             <div className={this.props.isRoot ? 'categoriesRoot' : 'categories'}>
-                    <CategoryList
-                        list={this.props.categories}
-                        selectCategoryCallback={this.props.selectCategoryCallback}
-                        onDeleteCallback={this.props.onDeleteCallback}
-                        onAddChildCallback={this.props.onAddChildCallback}
-                        onMoveToCategoryCallback={this.props.onMoveToCategoryCallback}
-                        editedTodo={this.props.editedTodo}
-                    />
             </div>
         );
     }
@@ -34,3 +26,15 @@ const CategoryList = ({list, selectCategoryCallback, onDeleteCallback, onAddChil
 );
 
 export {CategoryList, CategoryContainer};
+
+
+/*
+<CategoryList
+    list={this.props.categories}
+    selectCategoryCallback={this.props.selectCategoryCallback}
+    onDeleteCallback={this.props.onDeleteCallback}
+    onAddChildCallback={this.props.onAddChildCallback}
+    onMoveToCategoryCallback={this.props.onMoveToCategoryCallback}
+    editedTodo={this.props.editedTodo}
+/>
+*/

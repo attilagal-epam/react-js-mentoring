@@ -1,6 +1,13 @@
 import React from 'react';
 
 class EditTodo extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            todo: this.props.todo
+        };
+    }
+
     onNameChange(event) {
         console.log(event.target.value);
     }
@@ -14,9 +21,7 @@ class EditTodo extends React.Component {
     }
 
     render() {
-        this.state = {
-            todo: this.props.todo
-        };
+        console.log('EDITFORM  ', this.props.todo);
 
         return (
             <div className="editTodoContainer">

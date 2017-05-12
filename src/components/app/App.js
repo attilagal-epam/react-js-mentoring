@@ -5,96 +5,11 @@ import TodoContainer from './../todo/TodoContainer';
 import EditTodo from './../editTodo/EditTodo';
 import {CategoryContainer} from './../category/CategoryContainer';
 
-const categoryDataSource = [
-    {
-        name: 'egyes',
-        key: '1',
-        categories: [],
-        done: false
-    },
-    {
-        name: 'kettes',
-        key: '2',
-        categories: [],
-        done: false
-    },
-    {
-        name: 'hármas',
-        key: '3',
-        categories: [
-            {
-                name: '3.1',
-                key: '3.1',
-                categories: [],
-                done: false
-            },
-            {
-                name: '3.2',
-                key: '3.2',
-                categories: [
-                    {
-                        name: '3.2.1',
-                        key: '3.2.1',
-                        categories: [],
-                        done: false
-                    }
-                ]
-            },
-            {
-                name: '3.3',
-                key: '3.3',
-                categories: [],
-                done: false
-            }
-        ],
-        done: false
-    }
-],
-    todosDataSource = [
-    {
-        name: 'egy',
-        key: '1',
-        categoryId: '3.3',
-        description: 'agsdgxdhbxfgncfncvhm',
-        done: false
-    },
-    {
-        name: 'kettő',
-        key: '2',
-        categoryId: '3.3',
-        description: '',
-        done: false
-    },
-    {
-        name: 'három',
-        key: '3',
-        categoryId: '1',
-        description: '',
-        done: false
-    },
-    {
-        name: 'négy',
-        key: '4',
-        categoryId: '3',
-        description: '',
-        done: false
-    },
-    {
-        name: 'öt',
-        key: '5',
-        categoryId: '2',
-        description: '',
-        done: false
-    }
-];
-
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
             progress : 0,
-            categories : categoryDataSource,
-            todos: todosDataSource,
             todosFilter: '',
             selectedCategory: null,
             editedTodo: null
@@ -124,6 +39,7 @@ class App extends Component {
   addRootCategory(categoryTitle) {
     this.insertCategory(this.selectedCategoryInput.value);
   }
+
   addCategory(parentCategory) {
       this.insertCategory(this.selectedCategoryInput.value, parentCategory);
   }
@@ -132,7 +48,7 @@ class App extends Component {
       const newTodo = {
           name,
           key: Date.now(),
-          categoryId: this.state.selectedCategory || categoryDataSource[0].key,
+          categoryId: this.state.selectedCategory || this.state.categories[0].key,
           done: false
       };
 
@@ -145,20 +61,9 @@ class App extends Component {
       this.setState({todosFilter: event.target.value});
   }
 
-  todoFilterPredicate(todo) {
-      return !this.state.todosFilter ? true : todo.name.indexOf(this.state.todosFilter) !== -1;
-  }
-
-  categoryFilterPredicate(todo) {
-      return !this.state.selectedCategory ? true : todo.categoryId === this.state.selectedCategory;
-  }
-
-  filterTodos() {
-      //const todosNew = this.state.todos.filter(t => t.name.indexOf(this.state.todosFilter) !== -1 && t.key === this.state.selectedCategory);
-      //const todosNew = this.state.todos.map(t => { t.name.indexOf(this.state.todosFilter) !== -1 && t.key === this.state.selectedCategory});
-      //this.setState({todos: todosNew});
-      //console.log(this.state);
-      return this.state.todos.filter(t => this.todoFilterPredicate(t) && this.categoryFilterPredicate(t));
+  filterCategories() {
+//      return this.state.categories;
+      return this.state.categories.filter(c => !this.isCategoryDisplayable(c));
   }
 
   selectCategory(categoryId) {
@@ -177,7 +82,7 @@ class App extends Component {
   }
 
   onEditTodo(todo) {
-      //    TODO: clone the edited todo
+      console.log('EDIT:  ',todo);
       this.setState({editedTodo: todo});
   }
 
@@ -187,25 +92,43 @@ class App extends Component {
   }
 
   onTodoDone(todo, value) {
-      // TODO: find and replace the todo with the same key
-      this.setState({todos: this.state.todos.map(t => todo.key === t.key ? Object.assign(t, {done: value}) : t)});
+      this.setState({todos: this.state.todos.map(t => todo.key === t.key ? Object.assign(t, {done: value} ) : t)});
+
       this.setCategoryProgress(todo.categoryId);
-      this.removeFinishedCategories();
-      console.log('ADD  ', this.state.todos);
+      //this.removeFinishedCategories();
+      console.log('toggleDone  ', this.state.todos);
   }
 
   removeFinishedCategories() {
       this.setState({ categories: this.state.categories.filter(c => this.isCategoryDone(c, this.state.todos)) });
   }
 
-  isCategoryDone(category, todos) {
-      if (category.categories.length > 0) {
+  isCategoryDone(category) {
+      const todosByCategory = this.state.todos.filter(t => t.categoryId === category.key);
+      return todosByCategory.every(t => t.done);
+  }
 
+  isCategoryDisplayable(category) {
+      return this.isCategoryDone(category)
+              && (category.categories.length > 0 && category.categories.every(c => this.isCategoryDone(c)));
+  }
+
+  findCategory(rootCategories, categoryId) {
+      for (let i=0; i<rootCategories.length; i++) {
+          if (rootCategories[i].key === categoryId) {
+              return rootCategories[i];
+          }
+          else if (rootCategories[i].categories.length > 0) {
+              const retVal = this.findCategory(rootCategories[i].categories, categoryId);
+              if (retVal) {
+                  return retVal;
+              }
+          }
       }
   }
 
   setCategoryProgress(categoryId) {
-    const category = this.state.categories.find(c => c.key === categoryId);
+    const category = this.findCategory(this.state.categories, categoryId);
     category.done = !this.state.todos.some(t => t.categoryId === categoryId && !t.done);
   }
 
@@ -215,16 +138,16 @@ class App extends Component {
 
   render() {
     let todoComponent = null;
-      console.log(this.state.selectedCategory, this.state.todosFilter, this.state.todos);
     if (this.state.editedTodo) {
         todoComponent = <EditTodo todo={this.state.editedTodo}
                                   onTodoSaved={this.onTodoSaved.bind(this)}
                                   onTodoEditCanceled={this.onTodoEditCanceled.bind(this)}
         />;
     } else {
-        todoComponent = <TodoContainer todos={this.filterTodos()}
-                                       onEditCallback={this.onEditTodo.bind(this)}
+        todoComponent = <TodoContainer onEditCallback={this.onEditTodo.bind(this)}
                                        onTodoDoneCallback={this.onTodoDone.bind(this)}
+                                       todosFilter={this.state.todosFilter}
+                                       selectedCategory={this.state.selectedCategory}
         />;
     }
     return (
@@ -267,7 +190,6 @@ class App extends Component {
                     </div>
                 </div>
                 <CategoryContainer
-                    categories={this.state.categories}
                     isRoot={true}
                     selectCategoryCallback={this.selectCategory.bind(this)}
                     onDeleteCallback={this.deleteCategory.bind(this)}

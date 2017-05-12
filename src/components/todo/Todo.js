@@ -8,8 +8,6 @@ class Todo extends React.Component {
     }
 
     handleTodoDoneChanged(e) {
-        e.preventDefault();
-        e.stopPropagation();
         const v = e.target.value;
         console.log(v);
         this.props.onTodoDoneCallback(this.props.todo, v === 'on' ? true : false);
@@ -19,8 +17,9 @@ class Todo extends React.Component {
         return (
             <div className="todo">
                 <div className="todoContent">
-                    <input type="checkbox" className="todoFinished"
-
+                    <input type="checkbox"
+                           className="todoFinished"
+                           ref={(input) => { this.finished = input; } }
                            onChange={this.handleTodoDoneChanged.bind(this)}/>
                     <span className="todoTitle">{this.props.todo.name}</span>
                     <div className="todoButtons">
