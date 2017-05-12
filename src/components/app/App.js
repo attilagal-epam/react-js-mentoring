@@ -61,11 +61,6 @@ class App extends Component {
       this.setState({todosFilter: event.target.value});
   }
 
-  filterCategories() {
-//      return this.state.categories;
-      return this.state.categories.filter(c => !this.isCategoryDisplayable(c));
-  }
-
   selectCategory(categoryId) {
       this.setState({selectedCategory: categoryId});
   }
