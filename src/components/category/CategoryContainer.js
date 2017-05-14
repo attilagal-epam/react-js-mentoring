@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Category from './Category';
-import { deleteCategory } from './CategoryActions'
+import { deleteCategoryAction } from './CategoryActions'
 import './Category.css';
 
 class CategoryContainerClass extends React.Component {
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     deleteCategory: (c) => {
-        dispatch(deleteCategory(c));
+        dispatch(deleteCategoryAction(c));
     }
 });
 

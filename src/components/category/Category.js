@@ -22,7 +22,7 @@ class Category extends React.Component {
     handleDeleteClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.deleteCategory(this.props.category.key);
+        this.props.deleteCategory(this.props.category);
     }
 
     handleAddChildClick(e) {
