@@ -1,29 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {CategoryList} from './CategoryContainer';
+import { deleteCategoryAction } from './CategoryActions'
+import { addCategoryAction } from './CategoryActions'
+import { moveToCategoryAction } from './CategoryActions'
+import { selectCategoryAction } from './CategoryActions'
 
 class Category extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(props);
+    }
+
     handleClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.selectCategoryCallback(this.props.category.key);
+        this.props.selectCategory(this.props.category);
+//        this.props.selectCategoryCallback(this.props.category.key);
     }
 
     handleDeleteClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.onDeleteCallback(this.props.category.key);
+        this.props.deleteCategory(this.props.category.key);
     }
 
     handleAddChildClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.onAddChildCallback(this.props.category);
+        this.props.addCategory(this.props.category, 'CATEGORY_TITLE');
+//        this.props.onAddChildCallback(this.props.category);
     }
 
     handleMoveToCategoryClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.onMoveToCategoryCallback(this.props.category.key);
+        this.props.moveToCategory(this.props.category.key);
+        //this.props.onMoveToCategoryCallback(this.props.category.key);
     }
 
     render() {
@@ -51,7 +64,7 @@ class Category extends React.Component {
                 <div className="categories">
                     <CategoryList list={this.props.category.categories}
                                   selectCategoryCallback={this.props.selectCategoryCallback}
-                                  onDeleteCallback={this.props.onDeleteCallback}
+                                  deleteCategory={(id) => this.deleteCategory(id)}
                                   onAddChildCallback={this.props.onAddChildCallback}
                                   onMoveToCategoryCallback={this.props.onMoveToCategoryCallback}
                                   editedTodo={this.props.editedTodo}
@@ -65,9 +78,28 @@ class Category extends React.Component {
 
 Category.propTypes = {
     selectCategoryCallback: React.PropTypes.func,
-    onDeleteCallback:  React.PropTypes.func,
+    deleteCategory:  React.PropTypes.func,
     onAddChildCallback:  React.PropTypes.func,
     onMoveToCategoryCallback:  React.PropTypes.func
 };
 
-export default Category;
+const mapStateToProps = (state) => ({
+//    categories: state.categories
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    deleteCategory: (c) => {
+        dispatch(deleteCategoryAction(c));
+    },
+    addCategory: (c, title) => {
+        dispatch(addCategoryAction(c, title));
+    },
+    moveToCategory: (c, targetCategory) => {
+        dispatch(moveToCategoryAction(c, targetCategory));
+    },
+    selectCategory: (c) => {
+        dispatch(selectCategoryAction(c));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

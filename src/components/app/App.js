@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+import { connect } from 'react-redux';
 import ProgressBar from './../progressbar/ProgressBar';
 import TodoContainer from './../todo/TodoContainer';
 import EditTodo from './../editTodo/EditTodo';
 import {CategoryContainer} from './../category/CategoryContainer';
+import { addTodoAction } from '../todo/TodoActions';
 
 class App extends Component {
     constructor(props){
@@ -15,7 +17,7 @@ class App extends Component {
             editedTodo: null
         }
 
-        this.addTodo = this.addTodo.bind(this);
+//        this.addTodo = this.addTodo.bind(this);
         this.addRootCategory = this.addRootCategory.bind(this);
     }
   componentDidMount() {
@@ -44,19 +46,17 @@ class App extends Component {
       this.insertCategory(this.selectedCategoryInput.value, parentCategory);
   }
 
-  addTodo(name) {
-      const newTodo = {
-          name,
-          key: Date.now(),
-          categoryId: this.state.selectedCategory || this.state.categories[0].key,
-          done: false
-      };
-
-      this.setState({
-          todos: [...this.state.todos, newTodo]
-      });
-  }
-
+  //addTodo(name) {
+  //    const newTodo = {
+  //        name,
+  //        key: Date.now(),
+  //        categoryId: this.state.selectedCategory || this.state.categories[0].key,
+  //        done: false
+  //    };
+  //
+  //    addTodoAction(newTodo);
+  //}
+  //
   setTodosFilter(event) {
       this.setState({todosFilter: event.target.value});
   }
@@ -65,11 +65,7 @@ class App extends Component {
       this.setState({selectedCategory: categoryId});
   }
 
-  deleteCategory(categoryId) {
-    this.setState({categories: this.state.categories.filter(t => t.key !== categoryId)});
-  }
-
-  moveToCategory(categoryId) {
+  moveToCategory(categoryId) {      //  reduxed
     //  TODO:  find todo and set categoryId
     const editedTodo = this.state.editedTodo;
     this.setState({todos: this.state.todos.map(t => editedTodo.key === t.key ? Object.assign(t, {categoryId: categoryId}) : t),
@@ -187,7 +183,6 @@ class App extends Component {
                 <CategoryContainer
                     isRoot={true}
                     selectCategoryCallback={this.selectCategory.bind(this)}
-                    onDeleteCallback={this.deleteCategory.bind(this)}
                     onAddChildCallback={this.addCategory.bind(this)}
                     onMoveToCategoryCallback={this.moveToCategory.bind(this)}
                     editedTodo={this.state.editedTodo}
@@ -199,4 +194,32 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+//    categories: state.categories
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addTodo: (name) => {
+        const newTodo = {
+            name,
+            key: Date.now(),
+            categoryId: this.state.selectedCategory || this.state.categories[0].key,
+            done: false
+        };
+
+        dispatch(addTodoAction(newTodo));
+    }
+
+
+    //deleteCategory: (c) => {
+    //    dispatch(deleteCategory(c));
+    //},
+    //addCategory: (c, title) => {
+    //    dispatch(addCategory(c, title));
+    //},
+    //moveToCategory: (c, targetCategory) => {
+    //    dispatch(moveToCategory(c, targetCategory));
+    //}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

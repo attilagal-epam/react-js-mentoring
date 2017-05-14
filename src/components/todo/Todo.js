@@ -1,16 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { editTodoAction } from './TodoActions'
+import { updateTodoAction } from './TodoActions'
+import { changeTodoFinishedAction } from './TodoActions'
 
 class Todo extends React.Component {
     handleEditClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.onEditCallback(this.props.todo);
+        this.props.editTodo(this.props.todo);
     }
 
     handleTodoDoneChanged(e) {
         const v = e.target.value;
         console.log(v);
-        this.props.onTodoDoneCallback(this.props.todo, v === 'on' ? true : false);
+        this.props.changeTodoFinished(this.props.todo, v === 'on' ? true : false);
     }
 
     render() {
@@ -32,4 +36,17 @@ class Todo extends React.Component {
     }
 }
 
-export default Todo;
+const mapStateToProps = (state) => ({
+//    categories: state.categories
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    editTodo: (t) => {
+        dispatch(editTodoAction(t));
+    },
+    changeTodoFinished: (t) => {
+        dispatch(changeTodoFinishedAction(t));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);

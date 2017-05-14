@@ -50,7 +50,6 @@ const TodoList = ({list}) => (
     <div className="todo">{list.map((todo) => <Todo name={todo.name} key={todo.key} />)}</div>
 );
 
-
 const mapStateToProps = (state) => ({
     todos: state.todos
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Category from './Category';
+import { deleteCategory } from './CategoryActions'
 import './Category.css';
 
 class CategoryContainerClass extends React.Component {
@@ -18,7 +19,7 @@ class CategoryContainerClass extends React.Component {
                 <CategoryList
                     list={this.props.categories}
                     selectCategoryCallback={this.props.selectCategoryCallback}
-                    onDeleteCallback={this.props.onDeleteCallback}
+                    deleteCategory={(id) => this.deleteCategory(id)}
                     onAddChildCallback={this.props.onAddChildCallback}
                     onMoveToCategoryCallback={this.props.onMoveToCategoryCallback}
                     editedTodo={this.props.editedTodo}
@@ -28,13 +29,13 @@ class CategoryContainerClass extends React.Component {
     }
 }
 
-const CategoryList = ({list, selectCategoryCallback, onDeleteCallback, onAddChildCallback, editedTodo, onMoveToCategoryCallback}) => (
+const CategoryList = ({list, selectCategoryCallback, deleteCategory, onAddChildCallback, editedTodo, onMoveToCategoryCallback}) => (
     <div>
         {list.map((category) => <Category
                                     category={category}
                                     key={category.key}
                                     selectCategoryCallback={selectCategoryCallback}
-                                    onDeleteCallback={onDeleteCallback}
+                                    onDeleteCallback={deleteCategory}
                                     onAddChildCallback={onAddChildCallback}
                                     onMoveToCategoryCallback={onMoveToCategoryCallback}
                                     editedTodo={editedTodo}
@@ -48,10 +49,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     deleteCategory: (c) => {
-        //dispatch(selectTodo(todo));
-        console.log(c, ' deleted');
+        dispatch(deleteCategory(c));
     }
 });
 
-const CategoryContainer = connect(mapStateToProps, mapDispatchToProps)(CategoryContainerClass)
+const CategoryContainer = connect(mapStateToProps, mapDispatchToProps)(CategoryContainerClass);
 export {CategoryList, CategoryContainer};

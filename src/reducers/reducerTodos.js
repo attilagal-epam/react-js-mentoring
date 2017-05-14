@@ -1,6 +1,9 @@
-const ReducerTodos = (state = null, action) => {
-    let todos;
+const ReducerTodos = (state = [], action) => {
+    let todos = [...state];
     switch (action.type) {
+        case 'TODO_ADD':
+                todos: [...action.value]
+            return todos;
         case 'TODO_UPDATE':
             todos = state.map(function (todo) {
                 if (todo.id === action.payload.id) {
@@ -21,19 +24,6 @@ const ReducerTodos = (state = null, action) => {
                 } else {
                     return todo;
                 }
-            });
-            return todos;
-        case 'TODO_ADD':
-            todos = [...state];
-            let maxId = 0;
-            todos.forEach((todo) => {
-                if (todo.id > maxId) maxId = todo.id;
-            });
-            todos.unshift({
-                id: maxId + 1,
-                categoryID: action.payload.categoryId,
-                name: action.payload.name,
-                done: false
             });
             return todos;
         case 'TODOS_DELETE_BYCATEGORY':
