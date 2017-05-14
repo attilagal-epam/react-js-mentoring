@@ -35,7 +35,7 @@ class EditTodo extends React.Component {
                     <input type="text"
                            name="todoName"
                            id="todoName"
-                           value={this.props.editTodo.name}
+                           value={this.props.todo.name}
                            onChange={this.onNameChange.bind(this)}
                     />
                 </div>
@@ -61,7 +61,7 @@ class EditTodo extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    todo: state
+    todo: state.editedTodo
 });
 
 const mapDispatchToProps = (dispatch) => ({

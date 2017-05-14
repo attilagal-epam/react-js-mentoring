@@ -10,7 +10,7 @@ const todoAppReducer = combineReducers({
 //    selectedTodo: SelectedTodoReducer,
     categories: ReducerCategories,
     selectedCategory: ReducerSelectedCategory,
-    editTodo: ReducerEditTodo
+    editedTodo: ReducerEditTodo
 });
 
 export default todoAppReducer;

@@ -129,8 +129,8 @@ class App extends Component {
 
   render() {
     let todoComponent = null;
-    if (this.state.editedTodo) {
-        todoComponent = <EditTodo todo={this.state.editedTodo}
+    if (this.props.editedTodo) {
+        todoComponent = <EditTodo todo={this.props.editedTodo}
                                   onTodoSaved={this.onTodoSaved.bind(this)}
                                   onTodoEditCanceled={this.onTodoEditCanceled.bind(this)}
         />;
@@ -185,7 +185,7 @@ class App extends Component {
                     selectCategoryCallback={this.selectCategory.bind(this)}
                     onAddChildCallback={this.addCategory.bind(this)}
                     onMoveToCategoryCallback={this.moveToCategory.bind(this)}
-                    editedTodo={this.state.editedTodo}
+                    editedTodo={this.props.editedTodo}
                 />
                 {todoComponent}
             </div>
@@ -195,7 +195,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-//    categories: state.categories
+    editedTodo: state.editedTodo
 });
 
 const mapDispatchToProps = (dispatch) => ({
