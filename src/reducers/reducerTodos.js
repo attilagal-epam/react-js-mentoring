@@ -5,30 +5,37 @@ const ReducerTodos = (state = [], action) => {
                 todos: [...action.value]
             return todos;
         case 'TODO_UPDATE':
+            console.log('TODO UPDATE',  action.value);
+            //  TODO: write the work
             todos = state.map(function (todo) {
-                if (todo.id === action.payload.id) {
-                    todo.name = action.payload.name;
-                    todo.description = action.payload.description;
-                    todo.done = action.payload.done;
+                if (todo.key === action.value.key) {
+                    todo.name = action.value.name;
+                    todo.description = action.value.description;
+                    todo.done = action.value.done;
                     return todo;
                 } else {
                     return todo;
                 }
             });
             return todos;
-        case 'TODO_MOVE':
+        case 'TODO_MOVETOCATEGORY':
             todos = state.map(function (todo) {
-                if (todo.id === action.payload.todoId) {
-                    todo.categoryID = action.payload.categoryId;
+                if (todo.key === action.value.key) {
+                    todo.categoryID = action.value.categoryId;
                     return todo;
                 } else {
                     return todo;
                 }
             });
             return todos;
-        case 'TODOS_DELETE_BYCATEGORY':
-            todos = state.filter((todo) => {
-                return (todo.categoryID !== action.payload);
+        case 'TODO_FINISH':
+            todos = state.map(function (todo, done) {
+                if (todo.key === action.value.todo.key) {
+                    todo.done = action.value.done;
+                    return todo;
+                } else {
+                    return todo;
+                }
             });
             return todos;
         default:

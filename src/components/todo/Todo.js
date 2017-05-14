@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { editTodoAction } from './TodoActions'
 import { updateTodoAction } from './TodoActions'
-import { changeTodoFinishedAction } from './TodoActions'
+import { finishTodoAction } from './TodoActions'
 
 class Todo extends React.Component {
     handleEditClick(e) {
@@ -44,8 +44,8 @@ const mapDispatchToProps = (dispatch) => ({
     editTodo: (t) => {
         dispatch(editTodoAction(t));
     },
-    changeTodoFinished: (t) => {
-        dispatch(changeTodoFinishedAction(t));
+    changeTodoFinished: (t, done) => {
+        dispatch(finishTodoAction(t, done));
     }
 });
 

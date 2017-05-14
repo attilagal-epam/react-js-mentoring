@@ -19,27 +19,40 @@ export const updateTodoAction = (todo) => {
     }
 };
 
-export const changeTodoFinishedAction = (todo) => {
+export const cancelEditTodoAction = (todo) => {
     return {
-        type: 'TODO_CHANGE_FINISHED',
+        type: 'TODO_CANCEL_EDIT',
         value: todo
     }
 };
+
+export const moveToCategoryAction = (targetCategory, todo) => {
+    return {
+        type: 'TODO_MOVETOCATEGORY',
+        value: {
+            targetCategory,
+            todo
+        }
+    }
+};
+
+export const finishTodoAction = (todo, done) => {
+    return {
+        type: 'TODO_FINISH',
+        value: { todo, done }
+    }
+};
+
+
+
+
+
+
 
 export const deleteTodo = (todo) => {
     return {
         type: 'Todo_DELETE',
         value: todo
-    }
-};
-
-export const moveToTodo = (targetTodo, todo) => {
-    return {
-        type: 'Todo_MOVETO',
-        value: {
-            targetTodo,
-            todo
-        }
     }
 };
 
