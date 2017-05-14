@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {CategoryList} from './CategoryContainer';
 import { deleteCategoryAction } from './CategoryActions'
 import { addCategoryAction } from './CategoryActions'
-import { moveToCategoryAction } from './CategoryActions'
 import { selectCategoryAction } from './CategoryActions'
+import { moveToCategoryAction } from '../todo/TodoActions';
 
 class Category extends React.Component {
     constructor(props) {
@@ -94,8 +94,8 @@ const mapDispatchToProps = (dispatch) => ({
     addCategory: (c, title) => {
         dispatch(addCategoryAction(c, title));
     },
-    moveToCategory: (c, targetCategory) => {
-        dispatch(moveToCategoryAction(c, targetCategory));
+    moveToCategory: (c) => {
+        dispatch(moveToCategoryAction(c));
     },
     selectCategory: (c) => {
         dispatch(selectCategoryAction(c));

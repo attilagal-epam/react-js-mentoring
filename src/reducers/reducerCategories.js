@@ -122,6 +122,7 @@ export default (state = [], action) => {
             return categories;
         case 'CATEGORY_MOVETO':
             console.log('action value:  ', action.value);
+            return categories;
         default:
             return state;
     }

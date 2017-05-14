@@ -1,17 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateTodoAction } from '../todo/TodoActions'
+import { cancelEditTodoAction } from '../todo/TodoActions'
 
 class EditTodo extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
-        //this.state = {
-        //    todo: this.props.todo
-        //};
+        this.state = {
+            todo : {...props.todo}
+        };
     }
 
-    onNameChange(event) {
-        console.log(event.target.value);
+    componentWillMount() {
+
+    }
+
+    onNameChange(name) {
+//        this.setState({todo: {name}});
     }
 
     onDoneChange(event) {
@@ -22,21 +27,29 @@ class EditTodo extends React.Component {
         console.log(event.target.value);
     }
 
+    onTodoSave() {
+        this.props.updateTodo(this.props.todo);
+    }
+
+    onTodoEditCancel() {
+        this.props.cancelEditTodo();
+    }
+
     render() {
         console.log('EDITFORM  ', this.props.todo);
 
         return (
             <div className="editTodoContainer">
                 <div>
-                    <button onClick={this.props.onTodoSaved}>Save changes</button>
-                    <button onClick={this.props.onTodoEditCanceled}>Cancel</button>
+                    <button onClick={this.onTodoSave.bind(this)}>Save changes</button>
+                    <button onClick={this.onTodoEditCancel.bind(this)}>Cancel</button>
                 </div>
                 <div>
                     <input type="text"
                            name="todoName"
                            id="todoName"
-                           value={this.props.todo.name}
-                           onChange={this.onNameChange.bind(this)}
+                           value={this.state.todo.name}
+                           onChange={event => this.onNameChange(event.target.value)}
                     />
                 </div>
                 <div>
@@ -45,13 +58,13 @@ class EditTodo extends React.Component {
                         name="todoDone"
                         id="todoDone"
                         value={this.props.todo.done}
-                        onChange={this.onDoneChange.bind(this)} />
+                    />
                     <label htmlFor="todoDone">Done</label>
                 </div>
                 <div>
                     <textarea name="todoDescription"
                            id="todoDescription"
-                           value={this.props.todo.description}
+                           value={this.state.todo.description}
                            onChange={this.onDescriptionChange.bind(this)}
                     />
                 </div>
@@ -60,13 +73,19 @@ class EditTodo extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    todo: state.editedTodo
-});
+const mapStateToProps = (state) =>
+{
+    return {
+        todo: state.editedTodo
+    };
+};
 
 const mapDispatchToProps = (dispatch) => ({
     updateTodo: (t) => {
         dispatch(updateTodoAction(t));
+    },
+    cancelEditTodo: (t) => {
+        dispatch(cancelEditTodoAction(t));
     }
 });
 

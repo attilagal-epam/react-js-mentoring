@@ -15,16 +15,6 @@ export const addCategoryAction = (rootCategory, name) => {
     }
 };
 
-export const moveToCategoryAction = (targetCategory, todo) => {
-    return {
-        type: 'CATEGORY_MOVETO',
-        value: {
-            targetCategory,
-            todo
-        }
-    }
-};
-
 export const selectCategoryAction = (category) => {
     return {
         type: 'CATEGORY_SELECTED',
