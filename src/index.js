@@ -7,7 +7,7 @@ import App from './components/app/App';
 import './index.css';
 import './lib/font-awesome/css/font-awesome.min.css'
 import todoAppReducer from './reducers/reducerApp';
-
+/*
 const categoryDataSource = [
         {
             name: 'egyes',
@@ -52,50 +52,14 @@ const categoryDataSource = [
             ],
             done: false
         }
-    ],
-    todosDataSource = [
-        {
-            name: 'egy',
-            key: '1',
-            categoryId: '3.3',
-            description: 'agsdgxdhbxfgncfncvhm',
-            done: false
-        },
-        {
-            name: 'kettő',
-            key: '2',
-            categoryId: '3.3',
-            description: '',
-            done: false
-        },
-        {
-            name: 'három',
-            key: '3',
-            categoryId: '1',
-            description: '',
-            done: false
-        },
-        {
-            name: 'négy',
-            key: '4',
-            categoryId: '3',
-            description: '',
-            done: false
-        },
-        {
-            name: 'öt',
-            key: '5',
-            categoryId: '2',
-            description: '',
-            done: false
-        }
-    ],
+    ]/*,
 initialState = {
     categories: categoryDataSource,
     todos: todosDataSource
-};
+}*/;
 
-let store = createStore(todoAppReducer, initialState);
+//let store = createStore(todoAppReducer, initialState);
+let store = createStore(todoAppReducer);
 
 ReactDOM.render((
     <Provider store={store}>

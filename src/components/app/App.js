@@ -6,6 +6,7 @@ import TodoContainer from './../todo/TodoContainer';
 import EditTodo from './../editTodo/EditTodo';
 import {CategoryContainer} from './../category/CategoryContainer';
 import { addTodoAction } from '../todo/TodoActions';
+import UndoRedoTodos from '../todo/UndoRedoTodos';
 
 class App extends Component {
     constructor(props){
@@ -17,7 +18,7 @@ class App extends Component {
             editedTodo: null
         }
 
-//        this.addTodo = this.addTodo.bind(this);
+        this.createTodo = this.createTodo.bind(this);
         this.addRootCategory = this.addRootCategory.bind(this);
     }
   componentDidMount() {
@@ -127,6 +128,15 @@ class App extends Component {
       this.setState({editedTodo: null});
   }
 
+  createTodo(name) {
+      return {
+          name,
+          key: Date.now(),
+          categoryId: this.props.selectedCategory || this.props.categories[0].key,
+          done: false
+      };
+  }
+
   render() {
     let todoComponent = null;
     if (this.props.editedTodo) {
@@ -175,9 +185,9 @@ class App extends Component {
                         <input type="text"
                                name="todo"
                                id="todo"
-                               ref={(input) => { this.todoFilterInput = input; } }
+                               ref={(input) => { this.newTodoInput = input; } }
                                placeholder="Add todo"/>
-                            <button onClick={() => { this.todoFilterInput && this.addTodo(this.todoFilterInput.value)} }>Add</button>
+                            <button onClick={() => { this.newTodoInput && this.props.addTodo(this.createTodo(this.newTodoInput.value))} }>Add</button>
                     </div>
                 </div>
                 <CategoryContainer
@@ -188,6 +198,7 @@ class App extends Component {
                     editedTodo={this.props.editedTodo}
                 />
                 {todoComponent}
+                <UndoRedoTodos />
             </div>
         </div>
     );
@@ -195,18 +206,14 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    editedTodo: state.editedTodo
+    editedTodo: state.editedTodo,
+    selectedCategory: state.selectedCategory,
+    categories: state.categories,
+    todos: state.todos.present
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    addTodo: (name) => {
-        const newTodo = {
-            name,
-            key: Date.now(),
-            categoryId: this.state.selectedCategory || this.state.categories[0].key,
-            done: false
-        };
-
+    addTodo: (newTodo) => {
         dispatch(addTodoAction(newTodo));
     }
 

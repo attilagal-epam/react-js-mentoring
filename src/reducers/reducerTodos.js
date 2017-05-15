@@ -1,8 +1,48 @@
-const ReducerTodos = (state = [], action) => {
+import undoable, {distinctState} from 'redux-undo';
+
+const todosDataSource = [
+    {
+        name: 'egy',
+        key: '1',
+        categoryId: '3.3',
+        description: 'agsdgxdhbxfgncfncvhm',
+        done: false
+    },
+    {
+        name: 'kettő',
+        key: '2',
+        categoryId: '3.3',
+        description: '',
+        done: false
+    },
+    {
+        name: 'három',
+        key: '3',
+        categoryId: '1',
+        description: '',
+        done: false
+    },
+    {
+        name: 'négy',
+        key: '4',
+        categoryId: '3',
+        description: '',
+        done: false
+    },
+    {
+        name: 'öt',
+        key: '5',
+        categoryId: '2',
+        description: '',
+        done: false
+    }
+]
+
+const ReducerTodos = (state = todosDataSource, action) => {
     let todos = [...state];
     switch (action.type) {
         case 'TODO_ADD':
-                todos: [...action.value]
+                todos = [...todos, action.value]
             return todos;
         case 'TODO_UPDATE':
             console.log('TODO UPDATE',  action.value);
@@ -43,9 +83,8 @@ const ReducerTodos = (state = [], action) => {
     }
 };
 
-//const undoableTodos = undoable(ReducerTodos, {
-//    filter: distinctState()
-//})
-//
-//export default undoableTodos;
-export default ReducerTodos;
+const undoableTodos = undoable(ReducerTodos, {
+    filter: distinctState()
+});
+
+export default undoableTodos;

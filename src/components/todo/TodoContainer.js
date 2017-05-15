@@ -23,7 +23,7 @@ class TodoContainer extends React.Component {
     render() {
         return (
             <div className="todoContainer">
-                {this.state.todos.map((todo) => <Todo
+                {this.props.todos.present.map((todo) => <Todo
                     todo={todo}
                     key={todo.key}
                     onEditCallback={this.props.onEditCallback}
@@ -42,7 +42,7 @@ class TodoContainer extends React.Component {
     }
 
     filterTodos() {
-        return this.state.todos.filter(t => this.todoFilterPredicate(t) && this.categoryFilterPredicate(t));
+        return this.state.todos.present.filter(t => this.todoFilterPredicate(t) && this.categoryFilterPredicate(t));
     }
 }
 
@@ -51,7 +51,7 @@ const TodoList = ({list}) => (
 );
 
 const mapStateToProps = (state) => ({
-    todos: state.todos
+    todos: state.todos.present
 });
 
 const mapDispatchToProps = (dispatch) => ({

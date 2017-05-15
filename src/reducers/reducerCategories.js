@@ -34,9 +34,55 @@ const addCategory = (parentCategory) => {
     this.insertCategory(this.selectedCategoryInput.value, parentCategory);
 };
 
+const categoryDataSource = [
+    {
+        name: 'egyes',
+        key: '1',
+        categories: [],
+        done: false
+    },
+    {
+        name: 'kettes',
+        key: '2',
+        categories: [],
+        done: false
+    },
+    {
+        name: 'hármas',
+        key: '3',
+        categories: [
+            {
+                name: '3.1',
+                key: '3.1',
+                categories: [],
+                done: false
+            },
+            {
+                name: '3.2',
+                key: '3.2',
+                categories: [
+                    {
+                        name: '3.2.1',
+                        key: '3.2.1',
+                        categories: [],
+                        done: false
+                    }
+                ]
+            },
+            {
+                name: '3.3',
+                key: '3.3',
+                categories: [],
+                done: false
+            }
+        ],
+        done: false
+    }
+];
 
 
-export default (state = [], action) => {
+
+export default (state = categoryDataSource, action) => {
     let categories = [...state];
     switch (action.type) {
         case 'CATEGORY_DELETE':
