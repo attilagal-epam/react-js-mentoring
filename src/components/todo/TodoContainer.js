@@ -24,7 +24,7 @@ class TodoContainer extends React.Component {
         console.log(this.props.newCategoryTitle);
         return (
             <div className="todoContainer">
-                {this.props.todos.present.map((todo) => <Todo
+                {this.filterTodos().map((todo) => <Todo
                     todo={todo}
                     key={todo.key}
                     onEditCallback={this.props.onEditCallback}
@@ -35,15 +35,16 @@ class TodoContainer extends React.Component {
     }
 
     categoryFilterPredicate(todo) {
-        return !this.state.selectedCategory ? true : todo.categoryId === this.state.selectedCategory;
+        return !this.props.selectedCategory ? true : todo.categoryId === this.props.selectedCategory.key;
     }
 
     todoFilterPredicate(todo) {
-        return !this.state.todosFilter ? true : todo.name.indexOf(this.state.todosFilter) !== -1;
+//        return !this.state.todosFilter ? true : todo.name.indexOf(this.state.todosFilter) !== -1;
+        return true;
     }
 
     filterTodos() {
-        return this.state.todos.present.filter(t => this.todoFilterPredicate(t) && this.categoryFilterPredicate(t));
+        return this.props.todos.present.filter(t => this.todoFilterPredicate(t) && this.categoryFilterPredicate(t));
     }
 }
 
