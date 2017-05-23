@@ -5,6 +5,7 @@ import { deleteCategoryAction } from './CategoryActions'
 import { addCategoryAction } from './CategoryActions'
 import { selectCategoryAction } from './CategoryActions'
 import { moveToCategoryAction } from '../todo/TodoActions';
+import { finishEditTodoAction } from '../todo/TodoActions'
 
 class Category extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Category extends React.Component {
     handleMoveToCategoryClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.moveToCategory(this.props.category.key);
+        this.props.moveToCategory(this.props.category.key, this.props.editedTodo);
     }
 
     render() {
@@ -77,7 +78,8 @@ Category.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    newCategoryTitle: state.newCategoryTitle
+    newCategoryTitle: state.newCategoryTitle,
+    editedTodo: state.editedTodo
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -87,8 +89,9 @@ const mapDispatchToProps = (dispatch) => ({
     addCategory: (c, title) => {
         dispatch(addCategoryAction(c, title));
     },
-    moveToCategory: (c) => {
-        dispatch(moveToCategoryAction(c));
+    moveToCategory: (c, editedTodo) => {
+        dispatch(moveToCategoryAction(c, editedTodo));
+        dispatch(finishEditTodoAction());
     },
     selectCategory: (c) => {
         dispatch(selectCategoryAction(c));

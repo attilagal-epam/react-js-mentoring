@@ -25,7 +25,7 @@ class Todo extends React.Component {
                            className="todoFinished"
                            ref={(input) => { this.finished = input; } }
                            onChange={this.handleTodoDoneChanged.bind(this)}/>
-                    <span className="todoTitle">{this.props.todo.name}</span>
+                    <span className="todoTitle">{this.props.todo.name} Kat: {this.props.todo.categoryId}</span>
                     <div className="todoButtons">
                         <i className="fa fa-pencil-square-o toolButton"
                            onClick={this.handleEditClick.bind(this)}/>

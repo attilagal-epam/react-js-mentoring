@@ -45,8 +45,6 @@ const ReducerTodos = (state = todosDataSource, action) => {
                 todos = [...todos, action.value]
             return todos;
         case 'TODO_UPDATE':
-            console.log('TODO UPDATE',  action.value);
-            //  TODO: write the work
             todos = state.map(function (todo) {
                 if (todo.key === action.value.key) {
                     todo.name = action.value.name;
@@ -60,8 +58,8 @@ const ReducerTodos = (state = todosDataSource, action) => {
             return todos;
         case 'TODO_MOVETOCATEGORY':
             todos = state.map(function (todo) {
-                if (todo.key === action.value.key) {
-                    todo.categoryID = action.value.categoryId;
+                if (todo.key === action.value.todo.key) {
+                    todo.categoryId = action.value.targetCategory;
                     return todo;
                 } else {
                     return todo;
