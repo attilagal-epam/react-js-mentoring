@@ -28,11 +28,12 @@ class App extends Component {
   }
 
   onTodosFilterChanged(event) {
-      this.props.setTodosFilter(...this.props.todosFilter, {name: event.target.value});
+      this.props.setTodosFilter(Object.assign(this.props.todosFilter, {name: event.target.value}));
   }
 
-  selectCategory(categoryId) {
-      this.setState({selectedCategory: categoryId});
+  onTodosCheckedFilterChanged(event) {
+      console.log(this.refs.todosFilterChecked.value);
+      this.props.setTodosFilter(Object.assign(this.props.todosFilter, {done: event.target.value === 'on' ? true : false}));
   }
 
   moveToCategory(categoryId) {      //  reduxed
@@ -112,7 +113,11 @@ class App extends Component {
                 <div className="header">
                     <div className="header__title">To-Do List</div>
                     <div className="header__searchArea">
-                        <input type="checkbox" name="searchDone" id="searchDone" />
+                        <input type="checkbox"
+                               name="searchDone"
+                               id="searchDone"
+                               ref="todosFilterChecked"
+                               onChange={this.onTodosCheckedFilterChanged.bind(this)}/>
                         <label htmlFor="searchDone">Show done</label>
                         <input type="text"
                                name="search"

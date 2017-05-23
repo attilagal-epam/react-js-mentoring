@@ -1,7 +1,7 @@
 const defaultFilter = {
     name: '',
     selectedCategory: null,
-    checked: false
+    done: false
 };
 
 export default (state = defaultFilter, action) => {
