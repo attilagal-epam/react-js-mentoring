@@ -2,22 +2,31 @@
   "name": "react-js-mentoring",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
+  },
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.4",
     "react-router": "3.0.0",
     "redux": "^3.6.0",
-    "redux-undo": "^0.6.1"
+    "redux-undo": "^0.6.1",
+    "font-awesome": "4.7.0"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5",
-    "font-awesome": "4.7.0"
+    "babel-jest": "^19.0.0",
+    "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "testcoverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   }
 }
