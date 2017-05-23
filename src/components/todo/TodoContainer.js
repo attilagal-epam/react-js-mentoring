@@ -29,7 +29,7 @@ class TodoContainer extends React.Component {
     }
 
     todoFilterPredicate(todo) {
-        return !this.props.todosFilter ? true : todo.name.indexOf(this.props.todosFilter) !== -1;
+        return !this.props.todosFilter.name ? true : todo.name.indexOf(this.props.todosFilter.name) !== -1;
         return true;
     }
 

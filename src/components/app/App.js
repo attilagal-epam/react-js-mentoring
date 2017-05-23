@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   onTodosFilterChanged(event) {
-      this.props.setTodosFilter(event.target.value);
+      this.props.setTodosFilter(...this.props.todosFilter, {name: event.target.value});
   }
 
   selectCategory(categoryId) {
