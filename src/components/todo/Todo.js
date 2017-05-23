@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { editTodoAction } from './TodoActions'
 import { updateTodoAction } from './TodoActions'
 import { finishTodoAction } from './TodoActions'
+import { setCategoryDoneAction } from '../category/CategoryActions';
 
 class Todo extends React.Component {
     handleEditClick(e) {
@@ -14,7 +15,12 @@ class Todo extends React.Component {
     handleTodoDoneChanged(e) {
         const v = e.target.value;
         console.log(v);
-        this.props.changeTodoFinished(this.props.todo, v === 'on' ? true : false);
+        this.props.changeTodoFinished(this.props.todo, v === 'on', this.getCategoryCompleted(this.props.todo.categoryId));
+    }
+
+    getCategoryCompleted(categoryId) {
+        const todosByCategoryId = this.props.todos.present.filter(t => t.categoryId === categoryId);
+        return todosByCategoryId.every(t => t.done);
     }
 
     render() {
@@ -37,7 +43,8 @@ class Todo extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-//    categories: state.categories
+    categories: state.categories,
+    todos: state.todos.present
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,6 +53,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeTodoFinished: (t, done) => {
         dispatch(finishTodoAction(t, done));
+        dispatch(setCategoryDoneAction(t.categoryId, done));
     }
 });
 

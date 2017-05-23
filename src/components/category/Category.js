@@ -55,7 +55,7 @@ class Category extends React.Component {
             <div className="category"
                  onClick={this.handleClick.bind(this)}>
                 <span className="categoryTitle">
-                    {this.props.category.name}
+                    {this.props.category.name}  {this.props.category.done ? 'D' : ''}
                 </span>
                 {buttons}
                 {this.props.category.categories &&

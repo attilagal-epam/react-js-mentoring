@@ -28,3 +28,10 @@ export const newCategoryTitleChangedAction = (categoryTitle) => {
         value: categoryTitle
     }
 };
+
+export const setCategoryDoneAction = (categoryId, done) => {
+    return {
+        type: 'CATEGORY_SET_DONE',
+        value: {categoryId, done}
+    }
+};

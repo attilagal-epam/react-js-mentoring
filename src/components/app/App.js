@@ -36,13 +36,6 @@ class App extends Component {
       this.props.setTodosFilter(Object.assign(this.props.todosFilter, {done: event.target.value === 'on' ? true : false}));
   }
 
-  moveToCategory(categoryId) {      //  reduxed
-    //  TODO:  find todo and set categoryId
-    const editedTodo = this.state.editedTodo;
-    this.setState({todos: this.state.todos.map(t => editedTodo.key === t.key ? Object.assign(t, {categoryId: categoryId}) : t),
-                    editedTodo: null});
-  }
-
   onTodoDone(todo, value) {
       this.setState({todos: this.state.todos.map(t => todo.key === t.key ? Object.assign(t, {done: value} ) : t)});
 

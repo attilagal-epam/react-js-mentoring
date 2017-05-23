@@ -108,8 +108,6 @@ export default (state = categoryDataSource, action) => {
             //return categories;
 //            return state;
         case 'CATEGORY_ADD':
-
-//            const insertCategory = (categoryTitle, parentCategory) => {
                 const newCategory = {
                     name: action.value.name,
                     key: Date.now(),
@@ -119,81 +117,22 @@ export default (state = categoryDataSource, action) => {
 
                 let newCategories = action.value.rootCategory ? action.value.rootCategory.categories : categories;
                 newCategories.unshift(newCategory);
-//                this.setState({categories: rootCategories});
-//            };
-
-            //const addRootCategory = (categoryTitle) => {
-            //    this.insertCategory(this.selectedCategoryInput.value);
-            //};
-            //
-            //const  addCategory = (parentCategory) => {
-            //    this.insertCategory(this.selectedCategoryInput.value, parentCategory);
-            //};
-            //
-            //insertCategory(action.value.name, action.value.rootCategory);
-
-
-            //const maxCategoryId = (categories) => {
-            //    let maxId = 0;
-            //    categories.forEach(function (category) {
-            //        let id;
-            //        if (category.categories.length) id = maxCategoryId(category.categories);
-            //        else id = category.Id;
-            //
-            //        if (id > maxId) maxId = id;
-            //    });
-            //    return maxId;
-            //}
-            //let maxId = maxCategoryId(categories) + 1;
-            //
-            //if (action.payload.categoryId > 0) {
-            //    const categoryId = action.payload.categoryId;
-            //
-            //    const addSubCategory = (categories) => {
-            //        categories.forEach(function (category, index, cats) {
-            //            if (category && category.categories.length) {
-            //                let subCategories = addSubCategory(category.categories);
-            //                category.categories = subCategories;
-            //            }
-            //            if (category && categoryId === category.Id) {
-            //                category.categories.unshift({
-            //                    'Id': maxId,
-            //                    'parentId': 0,
-            //                    'name': action.payload.name,
-            //                    'categories': []
-            //                });
-            //            }
-            //        });
-            //        return categories;
-            //    };
-            //    categories = addSubCategory([...state]);
-            //} else {
-            //    categories.unshift({
-            //        'Id': maxId,
-            //        'parentId': 0,
-            //        'name': action.payload.name,
-            //        'categories': []
-            //    });
-            //}
             return categories;
         case 'CATEGORY_EDIT':
-            //const editCategory = (categories) => {
-            //    categories.forEach(function (category, index, cats) {
-            //        if (category && category.categories.length) {
-            //            let subCategories = editCategory(category.categories);
-            //            category.categories = subCategories;
-            //        }
-            //        if (category && action.payload.category.Id === category.Id) {
-            //            cats[index].name = action.payload.name;
-            //        }
-            //    });
-            //    return categories;
-            //};
-            //categories = editCategory([...state])
             return categories;
         case 'CATEGORY_MOVETO':
             console.log('action value:  ', action.value);
             return categories;
+        case 'CATEGORY_SET_DONE':
+            console.log('action value:  ', action.value);
+            return categories.map(function (c) {
+            if (c.key === action.value.categoryId) {
+                c.done = action.value.done;
+                return c;
+            } else {
+                return c;
+            }
+            });
         default:
             return state;
     }
