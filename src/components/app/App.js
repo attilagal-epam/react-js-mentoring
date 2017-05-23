@@ -21,23 +21,11 @@ class App extends Component {
         }
 
         this.createTodo = this.createTodo.bind(this);
-//        this.addRootCategory = this.addRootCategory.bind(this);
     }
   componentDidMount() {
     this.setState({ progress : 10 });
   }
 
-  //addTodo(name) {
-  //    const newTodo = {
-  //        name,
-  //        key: Date.now(),
-  //        categoryId: this.state.selectedCategory || this.state.categories[0].key,
-  //        done: false
-  //    };
-  //
-  //    addTodoAction(newTodo);
-  //}
-  //
   setTodosFilter(event) {
       this.setState({todosFilter: event.target.value});
   }
@@ -51,16 +39,6 @@ class App extends Component {
     const editedTodo = this.state.editedTodo;
     this.setState({todos: this.state.todos.map(t => editedTodo.key === t.key ? Object.assign(t, {categoryId: categoryId}) : t),
                     editedTodo: null});
-  }
-
-  onEditTodo(todo) {
-      console.log('EDIT:  ',todo);
-      this.setState({editedTodo: todo});
-  }
-
-  onTodoSaved(todo) {
-      // TODO: find and replace the todo with the same key
-      this.setState({editedTodo: null});
   }
 
   onTodoDone(todo, value) {
@@ -108,10 +86,6 @@ class App extends Component {
     category.done = !this.state.todos.some(t => t.categoryId === categoryId && !t.done);
   }
 
-  onTodoEditCanceled(todo) {
-      this.setState({editedTodo: null});
-  }
-
   createTodo(name) {
       return {
           name,
@@ -125,13 +99,9 @@ class App extends Component {
     let todoComponent = null;
     if (this.props.editedTodo) {
         todoComponent = <EditTodo todo={this.props.editedTodo}
-                                  onTodoSaved={this.onTodoSaved.bind(this)}
-                                  onTodoEditCanceled={this.onTodoEditCanceled.bind(this)}
         />;
     } else {
-        todoComponent = <TodoContainer onEditCallback={this.onEditTodo.bind(this)}
-                                       onTodoDoneCallback={this.onTodoDone.bind(this)}
-                                       todosFilter={this.state.todosFilter}
+        todoComponent = <TodoContainer todosFilter={this.state.todosFilter}
                                        selectedCategory={this.state.selectedCategory}
         />;
     }
@@ -178,9 +148,6 @@ class App extends Component {
                 </div>
                 <CategoryContainer
                     isRoot={true}
-                    selectCategoryCallback={this.selectCategory.bind(this)}
-//                    onAddChildCallback={this.addCategory.bind(this)}
-                    onMoveToCategoryCallback={this.moveToCategory.bind(this)}
                     editedTodo={this.props.editedTodo}
                 />
                 {todoComponent}
@@ -208,16 +175,6 @@ const mapDispatchToProps = (dispatch) => ({
     newCategoryTitleChanged: (newCategoryTitleChanged) => {
         dispatch(newCategoryTitleChangedAction(newCategoryTitleChanged));
     }
-
-    //deleteCategory: (c) => {
-    //    dispatch(deleteCategory(c));
-    //},
-    //addCategory: (c, title) => {
-    //    dispatch(addCategory(c, title));
-    //},
-    //moveToCategory: (c, targetCategory) => {
-    //    dispatch(moveToCategory(c, targetCategory));
-    //}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

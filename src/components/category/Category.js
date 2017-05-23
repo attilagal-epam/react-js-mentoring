@@ -16,7 +16,6 @@ class Category extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         this.props.selectCategory(this.props.category);
-//        this.props.selectCategoryCallback(this.props.category.key);
     }
 
     handleDeleteClick(e) {
@@ -29,14 +28,12 @@ class Category extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         this.props.addCategory(this.props.newCategoryTitle, this.props.category);
-//        this.props.onAddChildCallback(this.props.category);
     }
 
     handleMoveToCategoryClick(e) {
         e.preventDefault();
         e.stopPropagation();
         this.props.moveToCategory(this.props.category.key);
-        //this.props.onMoveToCategoryCallback(this.props.category.key);
     }
 
     render() {
@@ -63,10 +60,6 @@ class Category extends React.Component {
                 {this.props.category.categories &&
                 <div className="categories">
                     <CategoryList list={this.props.category.categories}
-                                  selectCategoryCallback={this.props.selectCategoryCallback}
-                                  deleteCategory={(id) => this.deleteCategory(id)}
-                                  onAddChildCallback={this.props.onAddChildCallback}
-                                  onMoveToCategoryCallback={this.props.onMoveToCategoryCallback}
                                   editedTodo={this.props.editedTodo}
                     />
                 </div>
