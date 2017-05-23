@@ -108,6 +108,31 @@ export default (state = categoryDataSource, action) => {
             //return categories;
 //            return state;
         case 'CATEGORY_ADD':
+
+//            const insertCategory = (categoryTitle, parentCategory) => {
+                const newCategory = {
+                    name: action.value.name,
+                    key: Date.now(),
+                    categories: [],
+                    done: false
+                };
+
+                let newCategories = action.value.rootCategory ? action.value.rootCategory.categories : categories;
+                newCategories.unshift(newCategory);
+//                this.setState({categories: rootCategories});
+//            };
+
+            //const addRootCategory = (categoryTitle) => {
+            //    this.insertCategory(this.selectedCategoryInput.value);
+            //};
+            //
+            //const  addCategory = (parentCategory) => {
+            //    this.insertCategory(this.selectedCategoryInput.value, parentCategory);
+            //};
+            //
+            //insertCategory(action.value.name, action.value.rootCategory);
+
+
             //const maxCategoryId = (categories) => {
             //    let maxId = 0;
             //    categories.forEach(function (category) {

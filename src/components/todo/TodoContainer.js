@@ -10,7 +10,9 @@ class TodoContainer extends React.Component {
         this.state = {
             todos: props.todos,
             todosFilter: props.todosFilter,
-            selectedCategory: props.selectedCategory
+            selectedCategory: props.selectedCategory,
+            newCategoryTitle: props.newCategoryTitle
+
             //filteredTodos: todoListItems,
             //categoryId: +props.match.params.categoryId
         };
@@ -21,6 +23,8 @@ class TodoContainer extends React.Component {
     }
 
     render() {
+        console.log(this.props.selectedCategory);
+        console.log(this.props.newCategoryTitle);
         return (
             <div className="todoContainer">
                 {this.props.todos.present.map((todo) => <Todo
@@ -51,7 +55,9 @@ const TodoList = ({list}) => (
 );
 
 const mapStateToProps = (state) => ({
-    todos: state.todos.present
+    todos: state.todos.present,
+    selectedCategory: state.selectedCategory,
+    newCategoryTitle: state.newCategoryTitle
 });
 
 const mapDispatchToProps = (dispatch) => ({

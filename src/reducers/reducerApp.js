@@ -3,6 +3,7 @@ import undoable from 'redux-undo';
 import ReducerTodos from './reducerTodos';
 //import SelectedTodoReducer from './reduderSelectedTodo';
 import ReducerCategories from './reducerCategories';
+import ReducerNewCategoryTitleChanged from './reducerNewCategoryTitleChanged';
 import ReducerSelectedCategory from './reducerSelectedCategory';
 import ReducerEditTodo from './reducerEditTodo';
 
@@ -11,7 +12,8 @@ const todoAppReducer = combineReducers({
 //    selectedTodo: SelectedTodoReducer,
     categories: ReducerCategories,
     selectedCategory: ReducerSelectedCategory,
-    editedTodo: ReducerEditTodo
+    editedTodo: ReducerEditTodo,
+    newCategoryTitle: ReducerNewCategoryTitleChanged
 });
 
 export default todoAppReducer;

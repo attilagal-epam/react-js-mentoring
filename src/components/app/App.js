@@ -6,6 +6,8 @@ import TodoContainer from './../todo/TodoContainer';
 import EditTodo from './../editTodo/EditTodo';
 import {CategoryContainer} from './../category/CategoryContainer';
 import { addTodoAction } from '../todo/TodoActions';
+import { addCategoryAction } from '../category/CategoryActions';
+import { newCategoryTitleChangedAction } from '../category/CategoryActions';
 import UndoRedoTodos from '../todo/UndoRedoTodos';
 
 class App extends Component {
@@ -19,32 +21,10 @@ class App extends Component {
         }
 
         this.createTodo = this.createTodo.bind(this);
-        this.addRootCategory = this.addRootCategory.bind(this);
+//        this.addRootCategory = this.addRootCategory.bind(this);
     }
   componentDidMount() {
     this.setState({ progress : 10 });
-  }
-
-  insertCategory(categoryTitle, parentCategory) {
-      const newCategory = {
-          name: categoryTitle,
-          key: Date.now(),
-          categories: [],
-          done: false
-      };
-
-      const rootCategories = this.state.categories;
-      let categories = parentCategory ? parentCategory.categories : this.state.categories;
-      categories.unshift(newCategory);
-      this.setState({categories: rootCategories});
-  }
-
-  addRootCategory(categoryTitle) {
-    this.insertCategory(this.selectedCategoryInput.value);
-  }
-
-  addCategory(parentCategory) {
-      this.insertCategory(this.selectedCategoryInput.value, parentCategory);
   }
 
   //addTodo(name) {
@@ -89,6 +69,10 @@ class App extends Component {
       this.setCategoryProgress(todo.categoryId);
       //this.removeFinishedCategories();
       console.log('toggleDone  ', this.state.todos);
+  }
+
+  onNewCategoryTitleChanged(newTitle) {
+      this.props.newCategoryTitleChanged(newTitle);
   }
 
   removeFinishedCategories() {
@@ -178,8 +162,10 @@ class App extends Component {
                                name="category"
                                id="category"
                                ref={(input) => { this.selectedCategoryInput = input; } }
-                               placeholder="Enter category title" />
-                            <button onClick={() => { this.selectedCategoryInput && this.addRootCategory(this.selectedCategoryInput.value)} }>Add</button>
+                               placeholder="Enter category title"
+                               onChange={event => this.onNewCategoryTitleChanged(event.target.value)}
+                        />
+                            <button onClick={() => { this.props.addCategory(this.selectedCategoryInput.value)} }>Add</button>
                     </div>
                     <div className="addTodo">
                         <input type="text"
@@ -193,7 +179,7 @@ class App extends Component {
                 <CategoryContainer
                     isRoot={true}
                     selectCategoryCallback={this.selectCategory.bind(this)}
-                    onAddChildCallback={this.addCategory.bind(this)}
+//                    onAddChildCallback={this.addCategory.bind(this)}
                     onMoveToCategoryCallback={this.moveToCategory.bind(this)}
                     editedTodo={this.props.editedTodo}
                 />
@@ -215,8 +201,13 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     addTodo: (newTodo) => {
         dispatch(addTodoAction(newTodo));
+    },
+    addCategory: (newCategory) => {
+        dispatch(addCategoryAction(newCategory, null));
+    },
+    newCategoryTitleChanged: (newCategoryTitleChanged) => {
+        dispatch(newCategoryTitleChangedAction(newCategoryTitleChanged));
     }
-
 
     //deleteCategory: (c) => {
     //    dispatch(deleteCategory(c));

@@ -28,7 +28,7 @@ class Category extends React.Component {
     handleAddChildClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.addCategory(this.props.category, 'CATEGORY_TITLE');
+        this.props.addCategory(this.props.newCategoryTitle, this.props.category);
 //        this.props.onAddChildCallback(this.props.category);
     }
 
@@ -84,7 +84,7 @@ Category.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-//    categories: state.categories
+    newCategoryTitle: state.newCategoryTitle
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -5,7 +5,7 @@ export const deleteCategoryAction = (category) => {
     }
 };
 
-export const addCategoryAction = (rootCategory, name) => {
+export const addCategoryAction = (name, rootCategory) => {
     return {
         type: 'CATEGORY_ADD',
         value: {
@@ -22,31 +22,9 @@ export const selectCategoryAction = (category) => {
     }
 };
 
-export const unselectCategory = () => {
+export const newCategoryTitleChangedAction = (categoryTitle) => {
     return {
-        type: 'CATEGORY_UNSELECT'
-    }
-};
-
-export const selectCategoryToEdit = (category) => {
-    return {
-        type: 'CATEGORY_EDITED',
-        value: category
-    }
-};
-
-export const unselectEditedCategory = () => {
-    return {
-        type: 'CATEGORY_EDITED_UNSELECT'
-    }
-};
-
-export const editCategory = (name, category) => {
-    return {
-        type: 'CATEGORY_EDIT',
-        value: {
-            name,
-            category
-        }
+        type: 'CATEGORY_NEW_TITLE_CHANGED',
+        value: categoryTitle
     }
 };

@@ -1,9 +1,8 @@
 export default (state = null, action) => {
     switch (action.type) {
-        case 'TODO_EDIT':
+        case 'CATEGORY_NEW_TITLE_CHANGED':
+            console.log('CATEGORY_NEW_TITLE_CHANGED  ', action.value)
             return action.value;
-        case 'TODO_FINISH_EDIT':
-            return null;
         default:
             return state;
     }

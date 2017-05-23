@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateTodoAction } from '../todo/TodoActions'
-import { cancelEditTodoAction } from '../todo/TodoActions'
+import { finishEditTodoAction } from '../todo/TodoActions'
 
 class EditTodo extends React.Component {
     constructor(props) {
@@ -16,6 +16,8 @@ class EditTodo extends React.Component {
     }
 
     onNameChange(name) {
+        console.log('onNameChange', name);
+        this.refs.nameInput.value = name;
 //        this.setState({todo: {name}});
     }
 
@@ -23,8 +25,9 @@ class EditTodo extends React.Component {
         console.log(event.target.value);
     }
 
-    onDescriptionChange(event) {
-        console.log(event.target.value);
+    onDescriptionChange(description) {
+        console.log(description);
+        this.refs.descriptionInput.value = description;
     }
 
     onTodoSave() {
@@ -32,7 +35,7 @@ class EditTodo extends React.Component {
     }
 
     onTodoEditCancel() {
-        this.props.cancelEditTodo();
+        this.props.finishEditTodo();
     }
 
     render() {
@@ -48,7 +51,8 @@ class EditTodo extends React.Component {
                     <input type="text"
                            name="todoName"
                            id="todoName"
-                           value={this.state.todo.name}
+                           value={this.props.todo.name}
+                           ref="nameInput"
                            onChange={event => this.onNameChange(event.target.value)}
                     />
                 </div>
@@ -64,8 +68,9 @@ class EditTodo extends React.Component {
                 <div>
                     <textarea name="todoDescription"
                            id="todoDescription"
-                           value={this.state.todo.description}
-                           onChange={this.onDescriptionChange.bind(this)}
+                           value={this.props.todo.description}
+                           ref="descriptionInput"
+                           onChange={event => this.onDescriptionChange(event.target.value)}
                     />
                 </div>
             </div>
@@ -83,9 +88,10 @@ const mapStateToProps = (state) =>
 const mapDispatchToProps = (dispatch) => ({
     updateTodo: (t) => {
         dispatch(updateTodoAction(t));
+        dispatch(finishEditTodoAction(t));
     },
-    cancelEditTodo: (t) => {
-        dispatch(cancelEditTodoAction(t));
+    finishEditTodo: (t) => {
+        dispatch(finishEditTodoAction(t));
     }
 });
 

@@ -19,9 +19,9 @@ export const updateTodoAction = (todo) => {
     }
 };
 
-export const cancelEditTodoAction = (todo) => {
+export const finishEditTodoAction = (todo) => {
     return {
-        type: 'TODO_CANCEL_EDIT',
+        type: 'TODO_FINISH_EDIT',
         value: todo
     }
 };
