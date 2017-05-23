@@ -8,6 +8,7 @@ import {CategoryContainer} from './../category/CategoryContainer';
 import { addTodoAction } from '../todo/TodoActions';
 import { addCategoryAction } from '../category/CategoryActions';
 import { newCategoryTitleChangedAction } from '../category/CategoryActions';
+import { todosFilterChangedAction } from '../todo/TodoActions';
 import UndoRedoTodos from '../todo/UndoRedoTodos';
 
 class App extends Component {
@@ -26,8 +27,8 @@ class App extends Component {
     this.setState({ progress : 10 });
   }
 
-  setTodosFilter(event) {
-      this.setState({todosFilter: event.target.value});
+  onTodosFilterChanged(event) {
+      this.props.setTodosFilter(event.target.value);
   }
 
   selectCategory(categoryId) {
@@ -118,7 +119,7 @@ class App extends Component {
                                className="header__search"
                                id="search"
                                placeholder="Search"
-                               onChange={this.setTodosFilter.bind(this)}/>
+                               onChange={this.onTodosFilterChanged.bind(this)}/>
                     </div>
                 </div>
                 <div className="progressBar">
@@ -162,7 +163,8 @@ const mapStateToProps = (state) => ({
     editedTodo: state.editedTodo,
     selectedCategory: state.selectedCategory,
     categories: state.categories,
-    todos: state.todos.present
+    todos: state.todos.present,
+    todosFilter: state.todosFilter
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -172,8 +174,11 @@ const mapDispatchToProps = (dispatch) => ({
     addCategory: (newCategory) => {
         dispatch(addCategoryAction(newCategory, null));
     },
-    newCategoryTitleChanged: (newCategoryTitleChanged) => {
-        dispatch(newCategoryTitleChangedAction(newCategoryTitleChanged));
+    newCategoryTitleChanged: (categoryTitle) => {
+        dispatch(newCategoryTitleChangedAction(categoryTitle));
+    },
+    setTodosFilter: (todosFilter) => {
+        dispatch(todosFilterChangedAction(todosFilter));
     }
 });
 

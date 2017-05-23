@@ -42,3 +42,10 @@ export const finishTodoAction = (todo, done) => {
         value: { todo, done }
     }
 };
+
+export const todosFilterChangedAction = (todosFilter) => {
+    return {
+        type: 'TODO_FILTER_CHANGED',
+        value: todosFilter
+    }
+};

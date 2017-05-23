@@ -6,6 +6,7 @@ import ReducerCategories from './reducerCategories';
 import ReducerNewCategoryTitleChanged from './reducerNewCategoryTitleChanged';
 import ReducerSelectedCategory from './reducerSelectedCategory';
 import ReducerEditTodo from './reducerEditTodo';
+import ReducerTodosFilterChanged from './reducerTodosFilterChanged';
 
 const todoAppReducer = combineReducers({
     todos: undoable(ReducerTodos),
@@ -13,7 +14,8 @@ const todoAppReducer = combineReducers({
     categories: ReducerCategories,
     selectedCategory: ReducerSelectedCategory,
     editedTodo: ReducerEditTodo,
-    newCategoryTitle: ReducerNewCategoryTitleChanged
+    newCategoryTitle: ReducerNewCategoryTitleChanged,
+    todosFilter: ReducerTodosFilterChanged
 });
 
 export default todoAppReducer;

@@ -6,22 +6,12 @@ import './Todo.css';
 class TodoContainer extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            todos: props.todos,
-            todosFilter: props.todosFilter,
-            selectedCategory: props.selectedCategory,
-            newCategoryTitle: props.newCategoryTitle
-        };
-    }
-
-    componentWillMount() {
-        this.setState({ todos: this.filterTodos()});
     }
 
     render() {
         console.log(this.props.selectedCategory);
         console.log(this.props.newCategoryTitle);
+        console.log(this.props.todosFilter);
         return (
             <div className="todoContainer">
                 {this.filterTodos().map((todo) => <Todo
@@ -39,7 +29,7 @@ class TodoContainer extends React.Component {
     }
 
     todoFilterPredicate(todo) {
-//        return !this.state.todosFilter ? true : todo.name.indexOf(this.state.todosFilter) !== -1;
+        return !this.props.todosFilter ? true : todo.name.indexOf(this.props.todosFilter) !== -1;
         return true;
     }
 
@@ -51,7 +41,8 @@ class TodoContainer extends React.Component {
 const mapStateToProps = (state) => ({
     todos: state.todos.present,
     selectedCategory: state.selectedCategory,
-    newCategoryTitle: state.newCategoryTitle
+    newCategoryTitle: state.newCategoryTitle,
+    todosFilter: state.todosFilter
 });
 
 const mapDispatchToProps = (dispatch) => ({
