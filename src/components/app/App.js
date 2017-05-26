@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
 import ProgressBar from './../progressbar/ProgressBar';
@@ -10,6 +11,7 @@ import { addCategoryAction } from '../category/CategoryActions';
 import { newCategoryTitleChangedAction } from '../category/CategoryActions';
 import { todosFilterChangedAction } from '../todo/TodoActions';
 import UndoRedoTodos from '../todo/UndoRedoTodos';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
     constructor(props){
@@ -92,6 +94,7 @@ class App extends Component {
 
   render() {
     let todoComponent = null;
+      console.log(this.props);
     if (this.props.editedTodo) {
         todoComponent = <EditTodo todo={this.props.editedTodo}
         />;
@@ -134,7 +137,7 @@ class App extends Component {
                                placeholder="Enter category title"
                                onChange={event => this.onNewCategoryTitleChanged(event.target.value)}
                         />
-                            <button onClick={() => { this.props.addCategory(this.selectedCategoryInput.value)} }>Add</button>
+                        <button onClick={() => { this.props.addCategory(this.selectedCategoryInput.value)} }>Add</button>
                     </div>
                     <div className="addTodo">
                         <input type="text"
@@ -142,14 +145,15 @@ class App extends Component {
                                id="todo"
                                ref={(input) => { this.newTodoInput = input; } }
                                placeholder="Add todo"/>
-                            <button onClick={() => { this.newTodoInput && this.props.addTodo(this.createTodo(this.newTodoInput.value))} }>Add</button>
+                        <button onClick={() => { this.newTodoInput && this.props.addTodo(this.createTodo(this.newTodoInput.value))} }>Add</button>
                     </div>
                 </div>
                 <CategoryContainer
                     isRoot={true}
                     editedTodo={this.props.editedTodo}
                 />
-                {todoComponent}
+                <Route path="/todo/:todoKey" component={EditTodo} />
+                <Route path="/" component={TodoContainer} />
                 <UndoRedoTodos />
             </div>
         </div>

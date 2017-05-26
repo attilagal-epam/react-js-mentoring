@@ -5,14 +5,12 @@ import { finishEditTodoAction } from '../todo/TodoActions'
 
 class EditTodo extends React.Component {
     constructor(props) {
-        super();
-        this.state = {
-            todo : {...props.todo}
-        };
+        super(props);
+        console.log('ctor', this.props);
     }
 
     componentWillMount() {
-
+        this.todo = this.props.todos.present.filter(t => t.key === this.props.match.params.todoKey);
     }
 
     onNameChange(name) {
@@ -51,7 +49,7 @@ class EditTodo extends React.Component {
                     <input type="text"
                            name="todoName"
                            id="todoName"
-                           value={this.props.todo.name}
+                           value={this.todo.name}
                            ref="nameInput"
                            onChange={event => this.onNameChange(event.target.value)}
                     />
@@ -61,14 +59,14 @@ class EditTodo extends React.Component {
                         type="checkbox"
                         name="todoDone"
                         id="todoDone"
-                        value={this.props.todo.done}
+                        value={this.todo.done}
                     />
                     <label htmlFor="todoDone">Done</label>
                 </div>
                 <div>
                     <textarea name="todoDescription"
                            id="todoDescription"
-                           value={this.props.todo.description}
+                           value={this.todo.description}
                            ref="descriptionInput"
                            onChange={event => this.onDescriptionChange(event.target.value)}
                     />
@@ -81,7 +79,7 @@ class EditTodo extends React.Component {
 const mapStateToProps = (state) =>
 {
     return {
-        todo: state.editedTodo
+        todos: state.todos.present
     };
 };
 
