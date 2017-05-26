@@ -4,19 +4,20 @@ import {CategoryList} from './CategoryContainer';
 import { deleteCategoryAction } from './CategoryActions'
 import { addCategoryAction } from './CategoryActions'
 import { selectCategoryAction } from './CategoryActions'
+import { unselectCategoryAction } from './CategoryActions'
 import { moveToCategoryAction } from '../todo/TodoActions';
 import { finishEditTodoAction } from '../todo/TodoActions'
 
 class Category extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
+        this.selected = false;
     }
 
     handleClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.selectCategory(this.props.category);
+        this.props.selectCategory(this.props.category, !this.selected);
     }
 
     handleDeleteClick(e) {
@@ -38,6 +39,7 @@ class Category extends React.Component {
     }
 
     render() {
+        this.selected = this.props.selectedCategory && this.props.selectedCategory.key === this.props.category.key;
         let buttons;
         if (this.props.editedTodo) {
             buttons = <div className="categoryButtons"><i className="fa fa-arrow-left toolButton"
@@ -55,7 +57,7 @@ class Category extends React.Component {
             <div className="category"
                  onClick={this.handleClick.bind(this)}>
                 <span className="categoryTitle">
-                    {this.props.category.name}  {this.props.category.done ? 'D' : ''}
+                    {this.props.category.name}  {this.props.category.done ? 'D' : ''}{this.selected ? 'S' : ''}
                 </span>
                 {buttons}
                 {this.props.category.categories &&
@@ -79,7 +81,8 @@ Category.propTypes = {
 
 const mapStateToProps = (state) => ({
     newCategoryTitle: state.newCategoryTitle,
-    editedTodo: state.editedTodo
+    editedTodo: state.editedTodo,
+    selectedCategory: state.selectedCategory
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -93,8 +96,13 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(moveToCategoryAction(c, editedTodo));
         dispatch(finishEditTodoAction());
     },
-    selectCategory: (c) => {
-        dispatch(selectCategoryAction(c));
+    selectCategory: (c, selected) => {
+        if (selected) {
+            dispatch(selectCategoryAction(c));
+        }
+        else {
+            dispatch(unselectCategoryAction(c));
+        }
     }
 });
 

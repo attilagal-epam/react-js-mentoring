@@ -89,24 +89,23 @@ export default (state = categoryDataSource, action) => {
             console.log('DELETE  ', action.value);
             const category = action.value;
             //  TODO recursion
-            return state.filter(t => t.key !== category.key);
+//            return state.filter(t => t.key !== category.key);
 
 
-            //const deleteCategory = (categories) => {
-            //    categories.forEach(function (category, index, cats) {
-            //        if (category && category.categories.length) {
-            //            let subCategories = deleteCategory(category.categories);
-            //            category.categories = subCategories;
-            //        }
-            //        if (category && action.payload === category.Id) {
-            //            cats.splice(index, 1);
-            //        }
-            //    });
-            //    return categories;
-            //};
-            //categories = deleteCategory([...state]);
-            //return categories;
-//            return state;
+            const deleteCategory = (categories) => {
+                categories.forEach(function (category, index, cats) {
+                    if (category && category.categories.length) {
+                        let subCategories = deleteCategory(category.categories);
+                        category.categories = subCategories;
+                    }
+                    if (category && action.payload === category.Id) {
+                        cats.splice(index, 1);
+                    }
+                });
+                return categories;
+            };
+            categories = deleteCategory([...state]);
+            return categories;
         case 'CATEGORY_ADD':
                 const newCategory = {
                     name: action.value.name,

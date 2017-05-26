@@ -20,7 +20,7 @@ const todosDataSource = [
         key: '3',
         categoryId: '1',
         description: '',
-        done: false
+        done: true
     },
     {
         name: 'négy',
@@ -36,7 +36,7 @@ const todosDataSource = [
         description: '',
         done: false
     }
-]
+];
 
 const ReducerTodos = (state = todosDataSource, action) => {
     let todos = [...state];
@@ -67,7 +67,7 @@ const ReducerTodos = (state = todosDataSource, action) => {
             });
             return todos;
         case 'TODO_FINISH':
-            todos = state.map(function (todo, done) {
+            todos = state.map(function (todo) {
                 if (todo.key === action.value.todo.key) {
                     todo.done = action.value.done;
                     return todo;

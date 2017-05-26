@@ -9,16 +9,15 @@ class TodoContainer extends React.Component {
     }
 
     render() {
-        console.log(this.props.selectedCategory);
-        console.log(this.props.newCategoryTitle);
-        console.log(this.props.todosFilter);
+        //console.log(this.props.selectedCategory);
+        //console.log(this.props.newCategoryTitle);
+        //console.log(this.props.todosFilter);
         return (
             <div className="todoContainer">
                 {this.filterTodos().map((todo) => <Todo
                     todo={todo}
                     key={todo.key}
-                    onEditCallback={this.props.onEditCallback}
-                    onTodoDoneCallback={this.props.onTodoDoneCallback}
+                    done={todo.done}
                 />)}
             </div>
         );

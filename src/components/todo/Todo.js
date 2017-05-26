@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { editTodoAction } from './TodoActions'
 import { updateTodoAction } from './TodoActions'
 import { finishTodoAction } from './TodoActions'
@@ -30,18 +31,21 @@ class Todo extends React.Component {
                     <input type="checkbox"
                            className="todoFinished"
                            ref={(input) => { this.finished = input; } }
+                           value={this.props.todo.done}
                            onChange={this.handleTodoDoneChanged.bind(this)}/>
                     <span className="todoTitle">{this.props.todo.name} Kat: {this.props.todo.categoryId}</span>
                     <div className="todoButtons">
-                        <i className="fa fa-pencil-square-o toolButton"
-                           onClick={this.handleEditClick.bind(this)}/>
+                        <Link to={`/todo/${this.props.todo.key}`}>
+                            <i className="fa fa-pencil-square-o toolButton"
+                               />
+                        </Link>
                     </div>
                 </div>
             </div>
         );
     }
 }
-
+//  onClick={this.handleEditClick.bind(this)}
 const mapStateToProps = (state) => ({
     categories: state.categories,
     todos: state.todos.present

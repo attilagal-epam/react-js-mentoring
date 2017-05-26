@@ -22,6 +22,13 @@ export const selectCategoryAction = (category) => {
     }
 };
 
+export const unselectCategoryAction = (category) => {
+    return {
+        type: 'CATEGORY_UNSELECTED',
+        value: category
+    }
+};
+
 export const newCategoryTitleChangedAction = (categoryTitle) => {
     return {
         type: 'CATEGORY_NEW_TITLE_CHANGED',
