@@ -91,20 +91,19 @@ export default (state = categoryDataSource, action) => {
             //  TODO recursion
 //            return state.filter(t => t.key !== category.key);
 
-
-            const deleteCategory = (categories) => {
+            const deleteCategory = (categories, categoryToDelete) => {
                 categories.forEach(function (category, index, cats) {
                     if (category && category.categories.length) {
-                        let subCategories = deleteCategory(category.categories);
+                        let subCategories = deleteCategory(category.categories, categoryToDelete);
                         category.categories = subCategories;
                     }
-                    if (category && action.payload === category.Id) {
+                    if (category && categoryToDelete.key === category.key) {    //  TODO: delete 3.2.1 nem frissul
                         cats.splice(index, 1);
                     }
                 });
                 return categories;
             };
-            categories = deleteCategory([...state]);
+            categories = deleteCategory([...state], category);
             return categories;
         case 'CATEGORY_ADD':
                 const newCategory = {
