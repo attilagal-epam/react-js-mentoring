@@ -42,3 +42,10 @@ export const setCategoryDoneAction = (categoryId, done) => {
         value: {categoryId, done}
     }
 };
+
+export const calculateProgressAction = (categories) => {
+    return {
+        type: 'CALCULATE_PROGRESS',
+        value: categories
+    }
+};
