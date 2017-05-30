@@ -93,16 +93,16 @@ class App extends Component {
   }
 
   render() {
-    let todoComponent = null;
-      console.log(this.props);
-    if (this.props.editedTodo) {
-        todoComponent = <EditTodo todo={this.props.editedTodo}
-        />;
-    } else {
-        todoComponent = <TodoContainer todosFilter={this.state.todosFilter}
-                                       selectedCategory={this.state.selectedCategory}
-        />;
-    }
+    //let todoComponent = null;
+    //  console.log(this.props);
+    //if (this.props.editedTodo) {
+    //    todoComponent = <EditTodo todo={this.props.editedTodo}
+    //    />;
+    //} else {
+    //    todoComponent = <TodoContainer todosFilter={this.state.todosFilter}
+    //                                   selectedCategory={this.state.selectedCategory}
+    //    />;
+    //}
     return (
         <div className="App container">
             <div className="container todoBody">
@@ -125,7 +125,7 @@ class App extends Component {
                 </div>
                 <div className="progressBar">
                     <div className="col-sm-12">
-                        <ProgressBar progress={this.state.progress} />
+                        <ProgressBar />
                     </div>
                 </div>
                 <div className="searchBar">

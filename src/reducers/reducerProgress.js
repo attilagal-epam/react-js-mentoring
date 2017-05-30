@@ -1,5 +1,6 @@
 const calculateProgress = (categories) => {
-    return countCategories(categories);
+    const categoryData = countCategories(categories);
+    return categoryData.finished / categoryData.count * 100;
 };
 
 const startValue = {

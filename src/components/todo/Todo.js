@@ -5,6 +5,7 @@ import { editTodoAction } from './TodoActions'
 import { updateTodoAction } from './TodoActions'
 import { finishTodoAction } from './TodoActions'
 import { setCategoryDoneAction } from '../category/CategoryActions';
+import { calculateProgressAction} from '../category/CategoryActions';
 
 class Todo extends React.Component {
     handleEditClick(e) {
@@ -14,9 +15,8 @@ class Todo extends React.Component {
     }
 
     handleTodoDoneChanged(e) {
-        const v = e.target.value;
-        console.log(v);
-        this.props.changeTodoFinished(this.props.todo, v === 'on', this.getCategoryCompleted(this.props.todo.categoryId));
+        this.props.todo.done = this.finishedCheckbox.checked;
+        this.props.changeTodoFinished(this.props.todo, this.finishedCheckbox.value, this.getCategoryCompleted(this.props.todo.categoryId), this.props.categories);
     }
 
     getCategoryCompleted(categoryId) {
@@ -30,7 +30,7 @@ class Todo extends React.Component {
                 <div className="todoContent">
                     <input type="checkbox"
                            className="todoFinished"
-                           ref={(input) => { this.finished = input; } }
+                           ref={(input) => { this.finishedCheckbox = input; } }
                            value={this.props.todo.done}
                            onChange={this.handleTodoDoneChanged.bind(this)}/>
                     <span className="todoTitle">{this.props.todo.name} Kat: {this.props.todo.categoryId}</span>
@@ -55,9 +55,10 @@ const mapDispatchToProps = (dispatch) => ({
     editTodo: (t) => {
         dispatch(editTodoAction(t));
     },
-    changeTodoFinished: (t, done) => {
+    changeTodoFinished: (t, done, categoryDone, categories) => {
         dispatch(finishTodoAction(t, done));
-        dispatch(setCategoryDoneAction(t.categoryId, done));
+        dispatch(setCategoryDoneAction(t.categoryId, categoryDone));
+        dispatch(calculateProgressAction(categories));
     }
 });
 

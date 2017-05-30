@@ -16,7 +16,7 @@ class EditTodo extends React.Component {
     onNameChange(name) {
         console.log('onNameChange', name);
         this.refs.nameInput.value = name;
-//        this.setState({todo: {name}});
+        this.todo.name = name;
     }
 
     onDoneChange(event) {
@@ -26,10 +26,11 @@ class EditTodo extends React.Component {
     onDescriptionChange(description) {
         console.log(description);
         this.refs.descriptionInput.value = description;
+        this.todo.description = description;
     }
 
     onTodoSave() {
-        this.props.updateTodo(this.props.todo);
+        this.props.updateTodo(this.todo);
     }
 
     onTodoEditCancel() {

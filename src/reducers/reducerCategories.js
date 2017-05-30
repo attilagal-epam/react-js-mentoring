@@ -88,9 +88,6 @@ export default (state = categoryDataSource, action) => {
         case 'CATEGORY_DELETE':
             console.log('DELETE  ', action.value);
             const category = action.value;
-            //  TODO recursion
-//            return state.filter(t => t.key !== category.key);
-
             const deleteCategory = (categories, categoryToDelete) => {
                 categories.forEach(function (category, index, cats) {
                     if (category && category.categories.length) {
@@ -119,17 +116,15 @@ export default (state = categoryDataSource, action) => {
         case 'CATEGORY_EDIT':
             return categories;
         case 'CATEGORY_MOVETO':
-            console.log('action value:  ', action.value);
             return categories;
         case 'CATEGORY_SET_DONE':
-            console.log('action value:  ', action.value);
             return categories.map(function (c) {
-            if (c.key === action.value.categoryId) {
-                c.done = action.value.done;
-                return c;
-            } else {
-                return c;
-            }
+                if (c.key === action.value.categoryId) {
+                    c.done = action.value.done;
+                    return c;
+                } else {
+                    return c;
+                }
             });
         default:
             return state;
