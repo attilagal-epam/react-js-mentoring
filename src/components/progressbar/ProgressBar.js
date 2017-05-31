@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class ProgressBar extends React.Component {
     render() {
         const valueBarStyle = {
-            width: this.props.progress
+            width: this.props.progress + '%'
         };
         return (
             <div>

@@ -43,9 +43,9 @@ export const setCategoryDoneAction = (categoryId, done) => {
     }
 };
 
-export const calculateProgressAction = (categories) => {
+export const calculateProgressAction = (categories, todos) => {
     return {
         type: 'CALCULATE_PROGRESS',
-        value: categories
+        value: {categories, todos: todos.present}
     }
 };

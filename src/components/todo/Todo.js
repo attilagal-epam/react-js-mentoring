@@ -16,7 +16,7 @@ class Todo extends React.Component {
 
     handleTodoDoneChanged(e) {
         this.props.todo.done = this.finishedCheckbox.checked;
-        this.props.changeTodoFinished(this.props.todo, this.finishedCheckbox.value, this.getCategoryCompleted(this.props.todo.categoryId), this.props.categories);
+        this.props.changeTodoFinished(this.props.todo, this.finishedCheckbox.checked, this.getCategoryCompleted(this.props.todo.categoryId), this.props.categories, this.props.todos);
     }
 
     getCategoryCompleted(categoryId) {
@@ -31,7 +31,7 @@ class Todo extends React.Component {
                     <input type="checkbox"
                            className="todoFinished"
                            ref={(input) => { this.finishedCheckbox = input; } }
-                           value={this.props.todo.done}
+                           checked={this.props.todo.done}
                            onChange={this.handleTodoDoneChanged.bind(this)}/>
                     <span className="todoTitle">{this.props.todo.name} Kat: {this.props.todo.categoryId}</span>
                     <div className="todoButtons">
@@ -55,10 +55,10 @@ const mapDispatchToProps = (dispatch) => ({
     editTodo: (t) => {
         dispatch(editTodoAction(t));
     },
-    changeTodoFinished: (t, done, categoryDone, categories) => {
+    changeTodoFinished: (t, done, categoryDone, categories, todos) => {
         dispatch(finishTodoAction(t, done));
         dispatch(setCategoryDoneAction(t.categoryId, categoryDone));
-        dispatch(calculateProgressAction(categories));
+        dispatch(calculateProgressAction(categories, todos));
     }
 });
 

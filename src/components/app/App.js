@@ -34,8 +34,8 @@ class App extends Component {
   }
 
   onTodosCheckedFilterChanged(event) {
-      console.log(this.refs.todosFilterChecked.value);
-      this.props.setTodosFilter(Object.assign(this.props.todosFilter, {done: event.target.value === 'on' ? true : false}));
+//      console.log(this.refs.todosFilterChecked.value);
+      this.props.setTodosFilter(Object.assign(this.props.todosFilter, {done: this.todosFilterChecked.checked }));
   }
 
   onTodoDone(todo, value) {
@@ -112,7 +112,7 @@ class App extends Component {
                         <input type="checkbox"
                                name="searchDone"
                                id="searchDone"
-                               ref="todosFilterChecked"
+                               ref={(input) => { this.todosFilterChecked = input; } }
                                onChange={this.onTodosCheckedFilterChanged.bind(this)}/>
                         <label htmlFor="searchDone">Show done</label>
                         <input type="text"
