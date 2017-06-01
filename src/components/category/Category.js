@@ -72,13 +72,6 @@ class Category extends React.Component {
     }
 }
 
-Category.propTypes = {
-    selectCategoryCallback: React.PropTypes.func,
-    deleteCategory:  React.PropTypes.func,
-    onAddChildCallback:  React.PropTypes.func,
-    onMoveToCategoryCallback:  React.PropTypes.func
-};
-
 const mapStateToProps = (state) => ({
     newCategoryTitle: state.newCategoryTitle,
     editedTodo: state.editedTodo,
