@@ -8,25 +8,19 @@ import EditTodo from './../editTodo/EditTodo';
 import {CategoryContainer} from './../category/CategoryContainer';
 import { addTodoAction } from '../todo/TodoActions';
 import { addCategoryAction } from '../category/CategoryActions';
+import { calculateProgressAction } from '../category/CategoryActions';
 import { newCategoryTitleChangedAction } from '../category/CategoryActions';
 import { todosFilterChangedAction } from '../todo/TodoActions';
 import UndoRedoTodos from '../todo/UndoRedoTodos';
-import { BrowserRouter as Router } from 'react-router-dom';
+
 
 class App extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            progress : 0,
-            todosFilter: '',
-            selectedCategory: null,
-            editedTodo: null
-        }
-
         this.createTodo = this.createTodo.bind(this);
     }
   componentDidMount() {
-    this.setState({ progress : 10 });
+      this.props.calculateProgress(this.props.categories, this.props.todos);
   }
 
   onTodosFilterChanged(event) {
@@ -93,16 +87,13 @@ class App extends Component {
   }
 
   render() {
-    //let todoComponent = null;
-    //  console.log(this.props);
-    //if (this.props.editedTodo) {
-    //    todoComponent = <EditTodo todo={this.props.editedTodo}
-    //    />;
-    //} else {
-    //    todoComponent = <TodoContainer todosFilter={this.state.todosFilter}
-    //                                   selectedCategory={this.state.selectedCategory}
-    //    />;
-    //}
+    let todoComponent = null;
+      console.log('MATCH', this.props.match);
+    if (this.props.match.params.todoKey) {
+        todoComponent = <EditTodo id={this.props.match.params.todoKey} />;
+    } else {
+        todoComponent = <TodoContainer />;
+    }
     return (
         <div className="App container">
             <div className="container todoBody">
@@ -152,14 +143,16 @@ class App extends Component {
                     isRoot={true}
                     editedTodo={this.props.editedTodo}
                 />
-                <Route path="/todo/:todoKey" component={EditTodo} />
-                <Route path="/" component={TodoContainer} />
+                {todoComponent}
                 <UndoRedoTodos />
             </div>
         </div>
     );
   }
 }
+
+//<Route path="/todo/:todoKey" component={EditTodo} />
+//<Route path="/" component={TodoContainer} />
 
 const mapStateToProps = (state) => ({
     editedTodo: state.editedTodo,
@@ -181,6 +174,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setTodosFilter: (todosFilter) => {
         dispatch(todosFilterChangedAction(todosFilter));
+    },
+    calculateProgress: (categories, todos) => {
+        dispatch(calculateProgressAction(categories, todos));
     }
 });
 

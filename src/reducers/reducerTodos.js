@@ -42,7 +42,7 @@ const ReducerTodos = (state = todosDataSource, action) => {
     let todos = [...state];
     switch (action.type) {
         case 'TODO_ADD':
-                todos = [...todos, action.value]
+                todos = [...todos, action.value];
             return todos;
         case 'TODO_UPDATE':
             todos = state.map(function (todo) {

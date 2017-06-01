@@ -4,14 +4,7 @@ import Todo from './Todo';
 import './Todo.css';
 
 class TodoContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        //console.log(this.props.selectedCategory);
-        //console.log(this.props.newCategoryTitle);
-        //console.log(this.props.todosFilter);
         return (
             <div className="todoContainer">
                 {this.filterTodos().map((todo) => <Todo

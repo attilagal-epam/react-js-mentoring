@@ -1,8 +1,3 @@
-const calculateProgress = (categories, todos) => {
-    const categoryData = countCategories(categories, todos);
-    return categoryData.finished / categoryData.count * 100;
-};
-
 const startValue = {
     finished : 0,
     count : 0
@@ -21,7 +16,6 @@ const countCategories = (categories, todos) => {
         finished : 0,
         count : 0
     };
-//    categories.forEach(function (category, index, cats) {
     for (let i=0;i<categories.length;i++) {
         const category = categories[i];
         if (category && category.categories.length) {
@@ -31,9 +25,15 @@ const countCategories = (categories, todos) => {
         }
         result.count += getTodosCountByCategory(category.key, todos);
         result.finished += getFinishedTodosCountByCategory(category.key, todos);
-    };
+    }
     return result;
+    };
+
+const calculateProgress = (categories, todos) => {
+    const categoryData = countCategories(categories, todos);
+    return categoryData.finished / categoryData.count * 100;
 };
+
 
 const ReducerProgress = (state = startValue, action) => {
     switch (action.type) {
