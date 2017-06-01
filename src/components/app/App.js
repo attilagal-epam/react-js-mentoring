@@ -83,7 +83,7 @@ class App extends Component {
       return {
           name,
           key: Date.now(),
-          categoryId: this.props.selectedCategory || this.props.categories[0].key,
+          categoryId: this.props.selectedCategory ? this.props.selectedCategory.key : this.props.categories[0].key,
           done: false
       };
   }
