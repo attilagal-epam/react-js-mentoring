@@ -148,7 +148,7 @@ class App extends Component {
                 />
                 <Switch>
                     <Route path="/todo/:todoKey" component={EditTodo} />
-                    <Route path="/list" component={TodoContainer} />
+                    <Route path="/" component={TodoContainer} />
                 </Switch>
                 <UndoRedoTodos />
             </div>
