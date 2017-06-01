@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateTodoAction } from '../todo/TodoActions'
-import { finishEditTodoAction } from '../todo/TodoActions'
+import { updateTodoAction } from '../todo/TodoActions';
+import { finishEditTodoAction } from '../todo/TodoActions';
+import Router from 'react-router';
+import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
 class EditTodo extends React.Component {
     constructor(props) {
         super(props);
         console.log('ctor', this.props);
-    }
-
-    componentWillMount() {
-        this.todo = this.props.todos.present.filter(t => t.key === this.props.match.params.todoKey);
+        this.todo = {};
     }
 
     onNameChange(name) {
@@ -19,8 +18,9 @@ class EditTodo extends React.Component {
         this.todo.name = name;
     }
 
-    onDoneChange(event) {
-        console.log(event.target.value);
+    onDoneChange(checked) {
+        this.refs.doneInput.checked = checked;
+        this.todo.done = checked;
     }
 
     onDescriptionChange(description) {
@@ -31,6 +31,7 @@ class EditTodo extends React.Component {
 
     onTodoSave() {
         this.props.updateTodo(this.todo);
+        this.props.router.push('/some/path');
     }
 
     onTodoEditCancel() {
@@ -39,7 +40,9 @@ class EditTodo extends React.Component {
 
     render() {
         console.log('EDITFORM  ', this.props.todo);
-
+        //this.todo = this.props.todos.present.filter(t => t.key === this.props.match.params.todoKey)[0];
+        this.todo = this.props.todos.present.filter(t => t.key === this.props.id)[0];
+        console.log('ETODO', this.todo);
         return (
             <div className="editTodoContainer">
                 <div>
@@ -50,8 +53,8 @@ class EditTodo extends React.Component {
                     <input type="text"
                            name="todoName"
                            id="todoName"
-                           value={this.todo.name}
                            ref="nameInput"
+                           defaultValue={this.todo.name}
                            onChange={event => this.onNameChange(event.target.value)}
                     />
                 </div>
@@ -60,14 +63,16 @@ class EditTodo extends React.Component {
                         type="checkbox"
                         name="todoDone"
                         id="todoDone"
-                        value={this.todo.done}
+                        checked={this.todo.done}
+                        ref="doneInput"
+                        onChange={event => this.onDoneChange(event.target.value)}
                     />
                     <label htmlFor="todoDone">Done</label>
                 </div>
                 <div>
                     <textarea name="todoDescription"
                            id="todoDescription"
-                           value={this.todo.description}
+                           defaultValue={this.todo.description}
                            ref="descriptionInput"
                            onChange={event => this.onDescriptionChange(event.target.value)}
                     />

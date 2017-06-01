@@ -1,38 +1,16 @@
-const findCategory= (rootCategories, categoryId) => {
-    for (let i=0; i<rootCategories.length; i++) {
-        if (rootCategories[i].key === categoryId) {
-            return rootCategories[i];
-        }
-        else if (rootCategories[i].categories.length > 0) {
-            const retVal = this.findCategory(rootCategories[i].categories, categoryId);
-            if (retVal) {
-                return retVal;
-            }
-        }
-    }
-};
-
-const insertCategory = (categoryTitle, parentCategory) => {
-    const newCategory = {
-        name: categoryTitle,
-        key: Date.now(),
-        categories: [],
-        done: false
-    };
-
-    const rootCategories = this.state.categories;
-    let categories = parentCategory ? parentCategory.categories : this.state.categories;
-    categories.unshift(newCategory);
-    this.setState({categories: rootCategories});
-};
-
-const addRootCategory = (categoryTitle) => {
-    this.insertCategory(this.selectedCategoryInput.value);
-};
-
-const addCategory = (parentCategory) => {
-    this.insertCategory(this.selectedCategoryInput.value, parentCategory);
-};
+//const findCategory= (rootCategories, categoryId) => {
+//    for (let i=0; i<rootCategories.length; i++) {
+//        if (rootCategories[i].key === categoryId) {
+//            return rootCategories[i];
+//        }
+//        else if (rootCategories[i].categories.length > 0) {
+//            const retVal = this.findCategory(rootCategories[i].categories, categoryId);
+//            if (retVal) {
+//                return retVal;
+//            }
+//        }
+//    }
+//};
 
 const categoryDataSource = [
     {

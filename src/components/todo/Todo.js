@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { editTodoAction } from './TodoActions'
-import { updateTodoAction } from './TodoActions'
 import { finishTodoAction } from './TodoActions'
 import { setCategoryDoneAction } from '../category/CategoryActions';
 import { calculateProgressAction} from '../category/CategoryActions';
 
-class Todo extends React.Component {
+export class Todo extends React.Component {
     handleEditClick(e) {
         e.preventDefault();
         e.stopPropagation();
