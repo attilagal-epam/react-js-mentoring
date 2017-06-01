@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
@@ -145,8 +146,10 @@ class App extends Component {
                     isRoot={true}
                     editedTodo={this.props.editedTodo}
                 />
-                <Route path="/todo/:todoKey" component={EditTodo} />
-                <Route path="/list" component={TodoContainer} />
+                <Switch>
+                    <Route path="/todo/:todoKey" component={EditTodo} />
+                    <Route path="/list" component={TodoContainer} />
+                </Switch>
                 <UndoRedoTodos />
             </div>
         </div>

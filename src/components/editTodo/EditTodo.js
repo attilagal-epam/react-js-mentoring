@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateTodoAction } from '../todo/TodoActions';
 import { finishEditTodoAction } from '../todo/TodoActions';
+import { browserHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class EditTodo extends React.Component {
     constructor(props) {
@@ -29,7 +31,6 @@ class EditTodo extends React.Component {
 
     onTodoSave() {
         this.props.updateTodo(this.todo);
-        this.props.router.push('/some/path');
     }
 
     onTodoEditCancel() {
@@ -44,8 +45,8 @@ class EditTodo extends React.Component {
         return (
             <div className="editTodoContainer">
                 <div>
-                    <button onClick={this.onTodoSave.bind(this)}>Save changes</button>
-                    <button onClick={this.onTodoEditCancel.bind(this)}>Cancel</button>
+                    <Link to="/list" onClick={this.onTodoSave.bind(this)}>Save changes</Link>
+                    <Link to="/list" onClick={this.onTodoEditCancel.bind(this)}>Cancel</Link>
                 </div>
                 <div>
                     <input type="text"
