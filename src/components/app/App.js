@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
 import ProgressBar from './../progressbar/ProgressBar';
@@ -87,14 +88,15 @@ class App extends Component {
   }
 
   render() {
-    let todoComponent = null;
-      console.log('MATCH', this.props.match);
-    if (this.props.match.params.todoKey) {
-        todoComponent = <EditTodo id={this.props.match.params.todoKey} />;
-    } else {
-        todoComponent = <TodoContainer />;
-    }
+    //let todoComponent = null;
+    //  console.log('MATCH', this.props.match);
+    //if (this.props.match.params.todoKey) {
+    //    todoComponent = <EditTodo id={this.props.match.params.todoKey} />;
+    //} else {
+    //    todoComponent = <TodoContainer />;
+    //}
     return (
+        <Router>
         <div className="App container">
             <div className="container todoBody">
                 <div className="header">
@@ -143,16 +145,16 @@ class App extends Component {
                     isRoot={true}
                     editedTodo={this.props.editedTodo}
                 />
-                {todoComponent}
+                <Route path="/todo/:todoKey" component={EditTodo} />
+                <Route path="/list" component={TodoContainer} />
                 <UndoRedoTodos />
             </div>
         </div>
+        </Router>
     );
   }
 }
 
-//<Route path="/todo/:todoKey" component={EditTodo} />
-//<Route path="/" component={TodoContainer} />
 
 const mapStateToProps = (state) => ({
     editedTodo: state.editedTodo,

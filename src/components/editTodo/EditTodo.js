@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateTodoAction } from '../todo/TodoActions';
 import { finishEditTodoAction } from '../todo/TodoActions';
-import Router from 'react-router';
-import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
 class EditTodo extends React.Component {
     constructor(props) {
@@ -40,8 +38,8 @@ class EditTodo extends React.Component {
 
     render() {
         console.log('EDITFORM  ', this.props.todo);
-        //this.todo = this.props.todos.present.filter(t => t.key === this.props.match.params.todoKey)[0];
-        this.todo = this.props.todos.present.filter(t => t.key === this.props.id)[0];
+        this.todo = this.props.todos.present.filter(t => t.key === this.props.match.params.todoKey)[0];
+        //this.todo = this.props.todos.present.filter(t => t.key === this.props.id)[0];
         console.log('ETODO', this.todo);
         return (
             <div className="editTodoContainer">
