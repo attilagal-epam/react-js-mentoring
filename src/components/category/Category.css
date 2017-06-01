@@ -16,6 +16,7 @@
   width: auto;
   height: auto;
   outline: solid black 1px;
+  padding-left: 10px;
 }
 
 .categoryButtons {
