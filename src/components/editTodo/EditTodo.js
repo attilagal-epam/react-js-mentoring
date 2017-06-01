@@ -13,19 +13,14 @@ class EditTodo extends React.Component {
     }
 
     onNameChange(name) {
-        console.log('onNameChange', name);
-        this.refs.nameInput.value = name;
         this.todo.name = name;
     }
 
     onDoneChange(checked) {
-        this.refs.doneInput.checked = checked;
-        this.todo.done = checked;
+        this.todo.done = checked === 'on';
     }
 
     onDescriptionChange(description) {
-        console.log(description);
-        this.refs.descriptionInput.value = description;
         this.todo.description = description;
     }
 
@@ -38,15 +33,13 @@ class EditTodo extends React.Component {
     }
 
     render() {
-        console.log('EDITFORM  ', this.props.todo);
         this.todo = this.props.todos.present.filter(t => t.key === this.props.match.params.todoKey)[0];
         //this.todo = this.props.todos.present.filter(t => t.key === this.props.id)[0];
-        console.log('ETODO', this.todo);
         return (
             <div className="editTodoContainer">
                 <div>
-                    <Link to="/list" onClick={this.onTodoSave.bind(this)}>Save changes</Link>
-                    <Link to="/list" onClick={this.onTodoEditCancel.bind(this)}>Cancel</Link>
+                    <Link to="/" onClick={this.onTodoSave.bind(this)}>Save changes</Link>
+                    <Link to="/" onClick={this.onTodoEditCancel.bind(this)}>Cancel</Link>
                 </div>
                 <div>
                     <input type="text"
@@ -62,7 +55,7 @@ class EditTodo extends React.Component {
                         type="checkbox"
                         name="todoDone"
                         id="todoDone"
-                        checked={this.todo.done}
+                        defaultChecked={this.todo.done}
                         ref="doneInput"
                         onChange={event => this.onDoneChange(event.target.value)}
                     />
